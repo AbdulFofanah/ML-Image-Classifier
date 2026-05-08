@@ -1,0 +1,89 @@
+# This python file serves the purpose to:
+# Load the dataset
+# use transforms on the data
+# split it into training data and validation data
+# Use the DataLoaders to load the images in batches
+
+import torch
+import torchvision.transforms as transforms
+from torchvision.datasets import OxfordIIITPet
+from torch.utils.data import DataLoader, random_split
+
+
+def main():
+    image_transformation = transforms.Compose([
+                                                 transforms.Resize((64, 64)), # small and fast training
+                                                 transforms.ToTensor(),
+                                                 transforms.Normalize( mean=[0.5, 0.5, 0.5],
+                                                                       std=[0.5, 0.5, 0.5]
+                                                                     )
+                                               ])
+
+    trainval_data = OxfordIIITPet(     # Load official trainval dataset
+        root="./data",
+        split="trainval",
+        target_types="category",
+        transform=image_transformation,
+        download=True,
+    )
+
+    test_data = OxfordIIITPet( # Load official test dataset
+        root="./data",
+        split="test",
+        target_types="category",
+        transform=image_transformation,
+        download=True,
+    )
+
+    #fixed random generator for the train/validation split
+    fixed_random_gen = torch.Generator().manual_seed(67) #random shuffle pattern - reproducible split
+
+    # trainval split into 80% training and 20 % validation - common values used in Deep learning textbook
+    # allows us to maintain the validation set as a point of comparison
+    training_size = int(0.8 * len(trainval_data))
+    validation_size = len(trainval_data) - training_size
+
+    # perform the split on the trainval data into 80%/20% with the same random seed
+    training_data, validation_data = random_split(
+                                        trainval_data,
+                                [training_size, validation_size],
+                                        generator=fixed_random_gen
+                                        )
+
+    # Data Loaders
+    training_loader = DataLoader(
+        training_data,
+        batch_size=32, #baseline value
+        shuffle=True,
+        num_workers=0 #baseline value
+    )
+
+    validation_loader = DataLoader(
+        validation_data,
+        batch_size=32, #baseline value
+        shuffle=False,
+        num_workers=0 #baseline value
+    )
+
+    test_loader = DataLoader(
+        test_data,
+        batch_size=32, #baseline value
+        shuffle=False,
+        num_workers=0 #baseline value
+    )
+
+    # python can iterate through batches of data
+    batch_images, batch_labels = next(iter(training_loader))
+    print(
+        f"Training size: {len(training_data)}\n"
+        f"Validation size: {len(validation_data)}\n"
+        f"Test size: {len(test_data)}\n"
+        f"Training batches: {len(training_loader)}\n"
+        f"Validation batches: {len(validation_loader)}\n"
+        f"Test batches: {len(test_loader)}\n"
+        f"Batch image tensor shape: {batch_images.shape}\n"
+        f"Batch label tensor shape: {batch_labels.shape}"
+    )
+
+if __name__ == "__main__":
+    main()
