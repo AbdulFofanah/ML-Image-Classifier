@@ -1,0 +1,23 @@
+# Python
+__pycache__/
+*.py[cod]
+
+# IDE files
+.idea/
+.vscode/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# Dataset
+data/
+
+# Model weights and checkpoints
+*.pth
+*.pt
+*.ckpt
+
+# OS files
+.DS_Store
+Thumbs.db
