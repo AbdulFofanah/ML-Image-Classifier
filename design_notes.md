@@ -1,14 +1,20 @@
 **My notes and reasoning**
+Numbers = significant milestone
 
 Project decisions: 
+1) I created a base data pipline using the official Oxford-IIIT Pet `trainval` and `test` splits, keeping the test split separate from training and validation.
 
 Architecture choices:
+1) No model architectur yet
 
 hyperparameters:
+1) I used an 80/20 train-validation split, batch size `32`, fixed seed `67`, and `num_workers=0` as simple baseline settings.
 
 transforms:
+1) I resized images to `64×64`, converted them to tensors, and normalised them with mean `[0.5, 0.5, 0.5]` and standard deviation `[0.5, 0.5, 0.5]`.
 
 Experiments I accpeted or rejeceted:
+1) I aused `64×64` images and batch size `32` as fast baseline choices
 
 Current environment check:
 - Python version: 3.11.15
