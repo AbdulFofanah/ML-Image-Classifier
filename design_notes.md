@@ -11,10 +11,11 @@ hyperparameters:
 1) I used an 80/20 train-validation split, batch size `32`, fixed seed `67`, and `num_workers=0` as simple baseline settings.
 
 transforms:
-1) I resized images to `64×64`, converted them to tensors, and normalised them with mean `[0.5, 0.5, 0.5]` and standard deviation `[0.5, 0.5, 0.5]`.
+1) I resized images to `64×64`, converted them to tensors, and normalised them with mean `[0.479638, 0.448003, 0.397518]` and standard deviation `[0.254801, 0.250005, 0.258661]`. 
+These values represent the mean and standard deviation of the entire training split with seed 67
 
 Experiments I accpeted or rejeceted:
-1) I aused `64×64` images and batch size `32` as fast baseline choices
+1) I used `64×64` images and batch size `32` as fast baseline choices
 
 Current environment check:
 - Python version: 3.11.15

@@ -1,9 +1,10 @@
 # This python file serves the purpose to:
-# Load the dataset
-# use transforms on the data
-# split it into training data and validation data
-# Use the DataLoaders to load the images in batches
-
+"""
+1) Load the dataset
+2) use transforms on the data
+3) split it into training data and validation data
+4) Use the DataLoaders to load the images in batches
+"""
 import torch
 import torchvision.transforms as transforms
 from torchvision.datasets import OxfordIIITPet
@@ -11,11 +12,14 @@ from torch.utils.data import DataLoader, random_split
 
 
 def main():
+    training_mean = [0.479638, 0.448003, 0.397518]
+    training_std = [0.254801, 0.250005, 0.258661]
+
     image_transformation = transforms.Compose([
                                                  transforms.Resize((64, 64)), # small and fast training
                                                  transforms.ToTensor(),
-                                                 transforms.Normalize( mean=[0.5, 0.5, 0.5],
-                                                                       std=[0.5, 0.5, 0.5]
+                                                 transforms.Normalize( mean=[training_mean],
+                                                                       std=[training_std]
                                                                      )
                                                ])
 
