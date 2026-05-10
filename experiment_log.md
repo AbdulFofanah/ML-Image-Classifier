@@ -443,3 +443,100 @@ Best validation accuracy:
 RandomHorizontalFlip(p=0.5) reduced training accuracy compared with the no-augmentation run, 
 did not improve validation accuracy, achieving 23.64% compared with the previous best of 23.78%. 
 The difference is small, so horizontal flip was not clearly harmful, but it was not clearly beneficial on its own.
+
+**Experiment — Phase 7B: RandomHorizontalFlip + RandomRotation(10)**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomHorizontalFlip(p=0.5) + RandomRotation(10)
+- Validation/test augmentation: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5854, train acc 5.20%, val loss 3.4906, val acc 7.34%.
+- Epoch 2: train loss 3.3266, train acc 10.70%, val loss 3.2621, val acc 11.28%.
+- Epoch 3: train loss 3.1222, train acc 13.89%, val loss 3.1949, val acc 11.28%.
+- Epoch 4: train loss 2.9853, train acc 17.53%, val loss 3.1616, val acc 12.23%.
+- Epoch 5: train loss 2.8781, train acc 18.58%, val loss 2.9600, val acc 18.34%.
+- Epoch 6: train loss 2.7647, train acc 22.32%, val loss 2.8793, val acc 19.16%.
+- Epoch 7: train loss 2.6718, train acc 25.24%, val loss 2.8469, val acc 19.43%.
+- Epoch 8: train loss 2.5970, train acc 26.49%, val loss 2.8078, val acc 20.38%.
+- Epoch 9: train loss 2.5521, train acc 27.55%, val loss 2.9380, val acc 19.97%.
+- Epoch 10: train loss 2.4644, train acc 29.79%, val loss 2.7881, val acc 21.74%.
+
+Best validation accuracy:
+- 21.74% at epoch 10.
+
+**Interpretation:**
+Adding RandomRotation(10) alongside horizontal flipping reduced validation accuracy from 23.64% with flip only to 21.74%.
+This suggests that rotation made the augmented training images too different or harder for the current model to learn from.
+i removed RandomRotation(10) for the next augmentation experiment.
+
+**Experiment - RandomHorizontalFlip + ColorJitter**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomHorizontalFlip(p=0.5) + ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2)
+- Validation/test augmentation: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5704, train acc 5.50%, val loss 3.4154, val acc 9.10%.
+- Epoch 2: train loss 3.3470, train acc 9.54%, val loss 3.2904, val acc 8.29%.
+- Epoch 3: train loss 3.1438, train acc 13.79%, val loss 3.1381, val acc 13.59%.
+- Epoch 4: train loss 3.0108, train acc 16.20%, val loss 3.0439, val acc 14.81%.
+- Epoch 5: train loss 2.8897, train acc 20.48%, val loss 2.9659, val acc 18.07%.
+- Epoch 6: train loss 2.7743, train acc 22.49%, val loss 2.9012, val acc 18.34%.
+- Epoch 7: train loss 2.6628, train acc 24.86%, val loss 2.8442, val acc 20.79%.
+- Epoch 8: train loss 2.5801, train acc 27.07%, val loss 2.7217, val acc 22.15%.
+- Epoch 9: train loss 2.4749, train acc 30.30%, val loss 2.9219, val acc 20.24%.
+- Epoch 10: train loss 2.4010, train acc 31.83%, val loss 2.6584, val acc 21.88%.
+
+Best validation accuracy:
+- 22.15% at epoch 8.
+
+**Interpretation:**
+Adding ColorJitter with horizontal flipping reduced validation accuracy compared with both the no-augmentation result and the flip-only result.
+The model trained more slowly and reached only 22.15% best validation accuracy, compared with 23.78% without augmentation.
+This suggests that the colour changes may have made the training data harder without improving generalisation for this current setup.
+
+**Experiment - Safe RandomResizedCrop**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomResizedCrop(size=96, scale=(0.8, 1.0))
+- Validation/test augmentation: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5227, train acc 6.56%, val loss 3.4161, val acc 8.83%.
+- Epoch 2: train loss 3.2401, train acc 11.92%, val loss 3.2979, val acc 10.60%.
+- Epoch 3: train loss 3.0427, train acc 16.10%, val loss 3.1883, val acc 12.36%.
+- Epoch 4: train loss 2.8920, train acc 19.46%, val loss 3.1076, val acc 13.99%.
+- Epoch 5: train loss 2.7388, train acc 23.34%, val loss 2.9891, val acc 17.80%.
+- Epoch 6: train loss 2.6167, train acc 26.02%, val loss 3.2484, val acc 13.18%.
+- Epoch 7: train loss 2.4828, train acc 29.21%, val loss 3.0752, val acc 17.53%.
+- Epoch 8: train loss 2.4053, train acc 31.28%, val loss 2.7698, val acc 22.15%.
+- Epoch 9: train loss 2.2700, train acc 34.24%, val loss 2.8422, val acc 23.23%.
+- Epoch 10: train loss 2.1575, train acc 38.96%, val loss 2.7055, val acc 23.91%.
+
+Best validation accuracy:
+- 23.91% at epoch 10.
+
+**Interpretation:**
+Safe RandomResizedCrop with scale=(0.8, 1.0) achieved the best augmentation result so far, reaching 23.91% validation accuracy.
+This slightly improved on the previous best result of 23.78% without augmentation. 
+The improvement was small, but it suggests that mild crop/zoom variation may help the model generalise slightly better than 
+flip, rotation, or colour jitter for this setup.

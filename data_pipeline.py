@@ -25,7 +25,10 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
     # Allows the batch size and worker count to be changed during future experiments.
     training_transformation = transforms.Compose([
         transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
-        transforms.RandomHorizontalFlip(p=0.5),  # randomly flips some training images left/right
+        transforms.RandomResizedCrop(
+                                        size=IMAGE_SIZE,
+                                        scale=(0.8, 1.0)
+                                    ),
         transforms.ToTensor(),
         transforms.Normalize(
                               mean=TRAINING_MEAN,
