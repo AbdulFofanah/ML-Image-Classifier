@@ -23,8 +23,9 @@ NUMBER_OF_WORKERS = 0
 
 def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
     # Allows the batch size and worker count to be changed during future experiments.
-    image_transformation = transforms.Compose([
+    training_transformation = transforms.Compose([
         transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
+        transforms.RandomHorizontalFlip(p=0.5),  # randomly flips some training images left/right
         transforms.ToTensor(),
         transforms.Normalize(
                               mean=TRAINING_MEAN,
@@ -32,11 +33,29 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
                             )
     ])
 
-    trainval_data = OxfordIIITPet(  # Load official trainval dataset
+    # does not use random augmentation, so validation/test results stay stable
+    evaluation_transformation = transforms.Compose([
+        transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
+        transforms.ToTensor(),
+        transforms.Normalize(
+            mean=TRAINING_MEAN,
+            std=TRAINING_STD
+        )
+    ])
+
+    training_trainval_data = OxfordIIITPet(  # Load official trainval dataset
         root="./data",
         split="trainval",
         target_types="category",
-        transform=image_transformation,
+        transform=training_transformation,
+        download=True,
+    )
+
+    validation_trainval_data = OxfordIIITPet(  # Load official trainval dataset
+        root="./data",
+        split="trainval",
+        target_types="category",
+        transform=evaluation_transformation,
         download=True,
     )
 
@@ -44,14 +63,14 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
         root="./data",
         split="test",
         target_types="category",
-        transform=image_transformation,
+        transform=evaluation_transformation,
         download=True,
     )
 
     # Stratified 80/20 split which keeps the class distribution similar in training and validation.
     # I did this as it helps make sure all 37 breeds are represented fairly in both the training and validation sets.
-    all_image_position_indices = list(range(len(trainval_data)))  # list of all image positions in the trainval_data dataset.
-    all_image_labels = trainval_data._labels  # the category label for every image, used for stratified splitting
+    all_image_position_indices = list(range(len(training_trainval_data)))  # list of all image positions in the trainval_data dataset.
+    all_image_labels = training_trainval_data._labels  # the category label for every image, used for stratified splitting
 
     training_indices, validation_indices = train_test_split(  # split the position of the indices
         all_image_position_indices,
@@ -60,8 +79,8 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
         stratify=all_image_labels  # preserves the class distribution
     )
 
-    training_data = Subset(trainval_data, training_indices)
-    validation_data = Subset(trainval_data, validation_indices)
+    training_data = Subset(training_trainval_data, training_indices)
+    validation_data = Subset(validation_trainval_data, validation_indices)
 
     # Data Loaders
     training_loader = DataLoader(

@@ -409,3 +409,37 @@ Increasing the image size to 128x128 did not improve validation accuracy compare
 The best validation accuracy was 23.64%, slightly below the 96x96 result of 23.78%. 
 The 128x128 run was also slower because the larger images increased computation. 
 I settled with 96x96 as the current best image size.
+
+## Experiment 12 Data augmentation
+
+**Experiment - RandomHorizontalFlip only**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomHorizontalFlip(p=0.5)
+- Validation/test augmentation: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5515, train acc 6.32%, val loss 3.4283, val acc 9.65%.
+- Epoch 2: train loss 3.2873, train acc 10.19%, val loss 3.1983, val acc 11.55%.
+- Epoch 3: train loss 3.0834, train acc 15.08%, val loss 3.1303, val acc 13.72%.
+- Epoch 4: train loss 2.9310, train acc 18.07%, val loss 2.9961, val acc 15.62%.
+- Epoch 5: train loss 2.7991, train acc 20.86%, val loss 2.8719, val acc 20.65%.
+- Epoch 6: train loss 2.6824, train acc 25.24%, val loss 2.8557, val acc 19.97%.
+- Epoch 7: train loss 2.5684, train acc 27.48%, val loss 2.8195, val acc 22.42%.
+- Epoch 8: train loss 2.4726, train acc 28.80%, val loss 2.7688, val acc 19.84%.
+- Epoch 9: train loss 2.3763, train acc 30.64%, val loss 2.7564, val acc 23.64%.
+- Epoch 10: train loss 2.3203, train acc 33.25%, val loss 2.8037, val acc 22.01%.
+
+Best validation accuracy:
+- 23.64% at epoch 9.
+
+**Interpretation**
+RandomHorizontalFlip(p=0.5) reduced training accuracy compared with the no-augmentation run, 
+did not improve validation accuracy, achieving 23.64% compared with the previous best of 23.78%. 
+The difference is small, so horizontal flip was not clearly harmful, but it was not clearly beneficial on its own.
