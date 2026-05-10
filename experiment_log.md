@@ -180,7 +180,7 @@ It reached only `15.62%` best validation accuracy, compared with `18.75%` for ba
 The final training accuracy was also lower, `46.47%`.
 This suggests that the larger batch size gave fewer weight updates per epoch and did not learn enough within 10 epochs.
 
-## Experiment 5, 6, 7, 8 - Adding BatchNorm, testing dropout, testing a winder CNN, testing a deeper CNN
+## Experiment 5, 6, 7, 8, 9 - Adding BatchNorm, testing dropout, testing a winder CNN, testing a deeper CNN, tesing AdaptiveAvgPool
 
 **Experiment - CNN + BatchNorm**
 
@@ -272,7 +272,7 @@ Results:
 Best validation accuracy:
 - 21.06% at epoch 8.
 
-Interpretation:
+**Decision:**
 The wider CNN learned the training data well but did not improve validation accuracy compared with the smaller BatchNorm model.
 The best validation accuracy was 21.06%, slightly below the BatchNorm only result of 21.47%. 
 Since the wider model is larger and slower but did not generalise better,
@@ -311,3 +311,36 @@ The best validation accuracy increased from 21.47% to 22.83%.
 This suggests that teh extra depth helped the model learn more useful visual features.
 However, after epoch 6 the validation accuracy dropped while training accuracy continued rising, showing overfitting.
 I kept it as the architecture at this stage.
+
+**Experiment - Deeper CNN + BatchNorm + AdaptiveAvgPool**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)) before the classifier.
+- Channels: 16 → 32 → 64 → 128
+- Dropout: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Image size: 64x64
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5201, train acc 6.18%, val loss 3.3212, val acc 9.92%.
+- Epoch 2: train loss 3.1281, train acc 14.91%, val loss 3.1313, val acc 12.77%.
+- Epoch 3: train loss 2.8462, train acc 21.91%, val loss 3.0267, val acc 14.40%.
+- Epoch 4: train loss 2.5953, train acc 27.96%, val loss 2.9473, val acc 15.35%.
+- Epoch 5: train loss 2.3761, train acc 33.22%, val loss 2.8840, val acc 17.66%.
+- Epoch 6: train loss 2.1489, train acc 39.88%, val loss 2.8470, val acc 21.20%.
+- Epoch 7: train loss 1.8552, train acc 49.59%, val loss 2.9143, val acc 19.84%.
+- Epoch 8: train loss 1.6168, train acc 58.22%, val loss 2.8953, val acc 23.64%.
+- Epoch 9: train loss 1.3538, train acc 65.08%, val loss 2.9997, val acc 20.92%.
+- Epoch 10: train loss 1.0997, train acc 73.37%, val loss 3.0865, val acc 20.92%.
+
+Best validation accuracy:
+- 23.64% at epoch 8.
+
+**Decision:**
+Adding AdaptiveAvgPool2d((4, 4)) kept the final feature map fixed at 128×4×4 before the classifier.
+At 64x64 input size this should not substantially change the architecture - the feature map was already 4x4.
+It makes the model compatible with larger image sizes later and this run achieved the best validation accuracy so far, 23.64%,
+so i'm keeping the adaptive pooling as part of the current architecture.

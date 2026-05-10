@@ -47,7 +47,8 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
             ),
             nn.BatchNorm2d(128),  # normalises the 128 feature maps to make training more stable
             nn.ReLU(),  # all negatives to 0
-            nn.MaxPool2d(kernel_size=2)  # highest value of 2x2 blocks
+            nn.MaxPool2d(kernel_size=2),  # highest value of 2x2 blocks
+            nn.AdaptiveAvgPool2d((4, 4))  # forces the final feature map to [batch, 128, 4, 4]
 
         )
 
