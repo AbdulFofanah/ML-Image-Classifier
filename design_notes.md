@@ -5,8 +5,9 @@ Project decisions:
 1) I created a base data pipline using the official Oxford-IIIT Pet `trainval` and `test` splits, keeping the test split separate from training and validation.
 2) I created a baseline CNN in my model.py file that accepted the data in teh correct shap adn output is in the correct logits for the 37 pet classes
 3) I replaced the basic random 80/20 train-validation split with a stratified 80/20 split so the class distribution across the 37 pet breeds is better preserved in both training and validation.
+4) Refactored my data pipline so that i could decouple the code for teh data loaded with the rest so that it could be imported to other python files down the line.
 
-Architecture choices:
+5) Architecture choices:
 1) No model architecture yet
 2) used three Conv2d --> ReLU --> MaxPool2d blocks followed by Flatten, Linear(4096 --> 128), ReLU, and Linear(128 --> 37) as a simple baseline CNN architecture.
 
