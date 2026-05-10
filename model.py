@@ -37,12 +37,23 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
             ),
             nn.BatchNorm2d(64),  # normalises the 64 feature maps to make training more stable
             nn.ReLU(), # all negatives to 0
+            nn.MaxPool2d(kernel_size=2),  # highest value of 2x2 blocks
+
+            nn.Conv2d(
+                in_channels=64,  # number of feature maps (filters learning from patterns)
+                out_channels=128,  # look for twice as many patterns as before
+                kernel_size=3,  # 3x3 patch of pixels
+                padding=1  # keeps the output the same size as the input
+            ),
+            nn.BatchNorm2d(128),  # normalises the 128 feature maps to make training more stable
+            nn.ReLU(),  # all negatives to 0
             nn.MaxPool2d(kernel_size=2)  # highest value of 2x2 blocks
+
         )
 
         self.classifier = nn.Sequential( #run in this specific order
             nn.Flatten(), # 3d to 1d by multiplying the last 3 dimensions of the tensor together
-            nn.Linear(64 * 8 * 8, 128), # turns the flattened image features into 128 learned scores for the classifier
+            nn.Linear(128 * 4 * 4, 128), # turns the flattened image features into 128 learned scores for the classifier
             nn.ReLU(),
             nn.Linear(128, num_classes) # maps compressed signals to pet breeds and generate logits
         )
