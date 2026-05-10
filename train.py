@@ -13,7 +13,7 @@ from model import OxfordPetCNN
 MODEL_SAVE_PATH = "model.pth"
 NUM_CLASSES = 37
 NUM_EPOCHS = 10
-LEARNING_RATE = 0.001
+LEARNING_RATE = 0.0005
 BATCH_SIZE = 32
 CHOSEN_SEED = 67
 
@@ -105,9 +105,7 @@ def main():
                           )
 
     best_validation_accuracy = 0.0
-    training_history = []
 
-    print("\nTraining history:")
     for epoch in range(NUM_EPOCHS):
         print(f"\nEpoch {epoch + 1} of {NUM_EPOCHS}")
         start_time = time.time()
@@ -131,15 +129,6 @@ def main():
 
         end_time = time.time()
         epoch_time = end_time - start_time
-
-        training_history.append({
-                                 "epoch": (epoch + 1),
-                                 "training_loss": training_loss,
-                                 "training_accuracy": training_accuracy,
-                                 "validation_loss": validation_loss,
-                                 "validation_accuracy": validation_accuracy,
-                                 "epoch_time": epoch_time
-                                })
 
         print(
             f"\nTraining loss (4 decimal places): {training_loss:.4f}\n"

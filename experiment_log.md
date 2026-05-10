@@ -35,7 +35,7 @@ Resize to `64×64`, `ToTensor`, normalisation with training-set mean `[0.479322,
 - Validation accuracy: `9.78%`
 - Epoch time: `16.77 seconds`
 
-## Experiment 3 — Baseline CNN 10-epoch run
+## Experiment 1 - Baseline CNN 10-epoch run
 
 **Goal:**  
 Train the same baseline CNN for 10 epochs to see whether the baseline continues improving or starts overfitting.
@@ -70,3 +70,34 @@ Accepted as the longer baseline run. The best validation accuracy improved to `1
 The model learned the training set strongly, with training accuracy increasing from `4.76%` to `82.54%`. 
 However, validation accuracy only increased to `19.16%`, and validation loss began increasing after around epoch 4. 
 This suggests that the baseline CNN is overfitting, memorising the training data much faster than it generalises to unseen validation images.
+
+## Experiment 3 - Learning rate adjustment
+**Results summary - Learning rate `1e-3` - `(lr=0.001, 10 epochs)`**
+
+- Epoch 1: train loss 3.5477, train acc 4.99%, val loss 3.3589, val acc 7.74%.
+- Epoch 2: train loss 3.3246, train acc 10.02%, val loss 3.2488, val acc 11.01%.
+- Epoch 3: train loss 3.0844, train acc 15.01%, val loss 3.1576, val acc 11.82%.
+- Epoch 4: train loss 2.8419, train acc 20.45%, val loss 3.0550, val acc 13.86%.
+- Epoch 5: train loss 2.5662, train acc 27.41%, val loss 3.0793, val acc 13.59%.
+- Epoch 6: train loss 2.2128, train acc 36.55%, val loss 3.1957, val acc 17.26%.
+- Epoch 7: train loss 1.7917, train acc 48.44%, val loss 3.5054, val acc 16.44%.
+- Epoch 8: train loss 1.3304, train acc 60.84%, val loss 3.8438, val acc 16.17%.
+- Epoch 9: train loss 0.8656, train acc 74.76%, val loss 4.5143, val acc 17.93%.
+- Epoch 10: train loss 0.4854, train acc 86.07%, val loss 5.3296, val acc 17.12%.
+
+**Best validation accuracy:** 17.93% at epoch 9.
+
+**Results summary - Learning rate `5e-4` - `(lr=0.0005, 10 epochs)`**
+
+- Epoch 1: train loss 3.5683, train acc 3.74%, val loss 3.4198, val acc 8.56%.
+- Epoch 2: train loss 3.3747, train acc 8.49%, val loss 3.3063, val acc 8.70%.
+- Epoch 3: train loss 3.1974, train acc 13.01%, val loss 3.1920, val acc 9.10%.
+- Epoch 4: train loss 2.9695, train acc 18.78%, val loss 3.0712, val acc 13.18%.
+- Epoch 5: train loss 2.7123, train acc 24.18%, val loss 3.0678, val acc 15.08%.
+- Epoch 6: train loss 2.4456, train acc 31.59%, val loss 3.1359, val acc 16.85%.
+- Epoch 7: train loss 2.1538, train acc 38.49%, val loss 3.1886, val acc 18.48%.
+- Epoch 8: train loss 1.8407, train acc 47.52%, val loss 3.4025, val acc 17.66%.
+- Epoch 9: train loss 1.4910, train acc 56.25%, val loss 3.5971, val acc 16.98%.
+- Epoch 10: train loss 1.1460, train acc 66.95%, val loss 4.0480, val acc 18.48%.
+
+**Best validation accuracy:** 18.48%, reached at epochs 7 and 10.
