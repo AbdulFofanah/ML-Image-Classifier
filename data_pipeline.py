@@ -24,7 +24,7 @@ NUMBER_OF_WORKERS = 0
 def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
     # Allows the batch size and worker count to be changed during future experiments.
     image_transformation = transforms.Compose([
-        transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),  # small and fast training
+        transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
         transforms.ToTensor(),
         transforms.Normalize(
                               mean=TRAINING_MEAN,

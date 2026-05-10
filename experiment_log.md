@@ -180,7 +180,7 @@ It reached only `15.62%` best validation accuracy, compared with `18.75%` for ba
 The final training accuracy was also lower, `46.47%`.
 This suggests that the larger batch size gave fewer weight updates per epoch and did not learn enough within 10 epochs.
 
-## Experiment 5, 6, 7, 8, 9, 10 - Adding BatchNorm, testing dropout, testing a winder CNN, testing a deeper CNN, tesing AdaptiveAvgPool, testing a bigger image size
+## Experiment 5, 6, 7, 8, 9, 10, 11 - Adding BatchNorm, testing dropout, testing a winder CNN, testing a deeper CNN, tesing AdaptiveAvgPool, testing a bigger image size, testing image sixe 128x128
 
 **Experiment - CNN + BatchNorm**
 
@@ -376,3 +376,36 @@ Best validation accuracy:
 Increasing the input image size from 64x64 to 96x96 slightly improved the best validation accuracy from 23.64% to 23.78%. 
 Small improvement, but the larger image size didn't hurt performance and may have allowed the model to use slightly more 
 visual detail. AdaptiveAvgPool2d((4, 4)) allowed this image-size change without changing the classifier input size.
+
+**Experiment - Image size 128x128 with Deeper CNN + BatchNorm + AdaptiveAvgPool**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)) before the classifier.
+- Channels: 16 → 32 → 64 → 128
+- Dropout: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Image size: 128x128
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5138, train acc 7.27%, val loss 3.3391, val acc 11.68%.
+- Epoch 2: train loss 3.1488, train acc 13.69%, val loss 3.1297, val acc 14.54%.
+- Epoch 3: train loss 2.8927, train acc 19.36%, val loss 2.9958, val acc 16.71%.
+- Epoch 4: train loss 2.6973, train acc 23.74%, val loss 2.9004, val acc 19.29%.
+- Epoch 5: train loss 2.5431, train acc 27.51%, val loss 2.8302, val acc 19.29%.
+- Epoch 6: train loss 2.3937, train acc 32.98%, val loss 2.7389, val acc 23.64%.
+- Epoch 7: train loss 2.2187, train acc 35.84%, val loss 2.7364, val acc 21.33%.
+- Epoch 8: train loss 2.0803, train acc 41.81%, val loss 2.7195, val acc 23.10%.
+- Epoch 9: train loss 1.9293, train acc 44.80%, val loss 2.7989, val acc 23.10%.
+- Epoch 10: train loss 1.8031, train acc 48.74%, val loss 2.8597, val acc 22.69%.
+
+Best validation accuracy:
+- 23.64% at epoch 6.
+
+**Decision:**
+Increasing the image size to 128x128 did not improve validation accuracy compared with 96x96. 
+The best validation accuracy was 23.64%, slightly below the 96x96 result of 23.78%. 
+The 128x128 run was also slower because the larger images increased computation. 
+I settled with 96x96 as the current best image size.
