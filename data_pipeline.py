@@ -55,27 +55,6 @@ def main():
     training_data = Subset(trainval_data, training_indices)
     validation_data = Subset(trainval_data, validation_indices)
 
-
-
-
-    """ Random split - i replaced this with Stratifdied ssplit instead
-        #fixed random generator for the train/validation split
-        fixed_random_gen = torch.Generator().manual_seed(67) #random shuffle pattern - reproducible split
-    
-        # trainval split into 80% training and 20 % validation - common values used in Deep learning textbook
-        # allows us to maintain the validation set as a point of comparison
-        training_size = int(0.8 * len(trainval_data))
-        validation_size = len(trainval_data) - training_size
-    
-        # perform the split on the trainval data into 80%/20% with the same random seed
-        training_data, validation_data = random_split(
-                                            trainval_data,
-                                    [training_size, validation_size],
-                                            generator=fixed_random_gen
-                                            )
-        
-    """
-
     # Data Loaders
     training_loader = DataLoader(
         training_data,
