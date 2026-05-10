@@ -180,7 +180,7 @@ It reached only `15.62%` best validation accuracy, compared with `18.75%` for ba
 The final training accuracy was also lower, `46.47%`.
 This suggests that the larger batch size gave fewer weight updates per epoch and did not learn enough within 10 epochs.
 
-## Experiment 5 - Adding BatchNorm
+## Experiment 5 - Adding BatchNorm, testing dropout, testing a winder CNN
 
 **Experiment - CNN + BatchNorm**
 
@@ -243,4 +243,37 @@ Best validation accuracy:
 Adding Dropout(0.3) reduced overfitting because training accuracy only reached 25.10%, 
 compared with 58.56% for the BatchNorm-only model. 
 However, it also reduced validation accuracy from 21.47% to 18.61%. 
-This suggests that 0.3 value was too strong for the classifier at this stage with underfitting so i wont add it
+This suggests that 0.3 value was too strong for the classifier at this stage with underfitting so i won't add it
+
+**Experiment - Wider CNN + BatchNorm**
+
+Settings:
+- Architecture: wider CNN with BatchNorm2d after each Conv2d layer.
+- Channels: 32 → 64 → 128
+- Dropout: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Image size: 64x64
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5830, train acc 4.65%, val loss 3.4434, val acc 8.42%.
+- Epoch 2: train loss 3.3041, train acc 10.46%, val loss 3.2683, val acc 10.46%.
+- Epoch 3: train loss 3.0358, train acc 16.47%, val loss 3.1650, val acc 11.55%.
+- Epoch 4: train loss 2.8206, train acc 22.45%, val loss 3.0482, val acc 16.17%.
+- Epoch 5: train loss 2.6258, train acc 25.92%, val loss 2.9682, val acc 16.58%.
+- Epoch 6: train loss 2.3892, train acc 31.79%, val loss 2.9653, val acc 19.29%.
+- Epoch 7: train loss 2.1929, train acc 38.18%, val loss 3.0240, val acc 18.48%.
+- Epoch 8: train loss 1.9619, train acc 44.19%, val loss 2.9074, val acc 21.06%.
+- Epoch 9: train loss 1.7518, train acc 49.90%, val loss 2.9514, val acc 20.52%.
+- Epoch 10: train loss 1.5470, train acc 55.91%, val loss 3.1189, val acc 20.79%.
+
+Best validation accuracy:
+- 21.06% at epoch 8.
+
+Interpretation:
+The wider CNN learned the training data well but did not improve validation accuracy compared with the smaller BatchNorm model.
+The best validation accuracy was 21.06%, slightly below the BatchNorm only result of 21.47%. 
+Since the wider model is larger and slower but did not generalise better,
+I didn't keep this in the architecture.
