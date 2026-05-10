@@ -126,3 +126,56 @@ This suggests that the baseline CNN is overfitting, memorising the training data
 **Decision:**  
 `0.0005` is currently the best learning rate for this baseline. It gives the highest validation accuracy, 
 `18.48%`, while overfitting less aggressively than `0.001`. Learning rate `0.0001` is too slow within 10 epochs.
+
+## Experiment 4 - Batch size adjustment
+
+**Results summary - Batch size 16, learning rate 0.0005, 10 epochs**
+
+- Epoch 1: train loss 3.5504, train acc 4.76%, val loss 3.3858, val acc 7.74%.
+- Epoch 2: train loss 3.3372, train acc 9.71%, val loss 3.2433, val acc 11.14%.
+- Epoch 3: train loss 3.1149, train acc 14.30%, val loss 3.1267, val acc 11.82%.
+- Epoch 4: train loss 2.8514, train acc 21.47%, val loss 3.0626, val acc 14.67%.
+- Epoch 5: train loss 2.5699, train acc 28.43%, val loss 3.1042, val acc 13.18%.
+- Epoch 6: train loss 2.2495, train acc 36.41%, val loss 3.1691, val acc 17.12%.
+- Epoch 7: train loss 1.8883, train acc 45.01%, val loss 3.4483, val acc 14.67%.
+- Epoch 8: train loss 1.4856, train acc 56.25%, val loss 3.6806, val acc 16.58%.
+- Epoch 9: train loss 1.0845, train acc 68.68%, val loss 4.1872, val acc 17.12%.
+- Epoch 10: train loss 0.7354, train acc 78.94%, val loss 4.6936, val acc 16.03%.
+
+**Best validation accuracy:** 17.12%, reached at epochs 6 and 9.
+
+**Results summary - Batch size 32, learning rate 0.0005, 10 epochs**
+
+- Epoch 1: train loss 3.5683, train acc 3.84%, val loss 3.4107, val acc 7.34%.
+- Epoch 2: train loss 3.3712, train acc 8.19%, val loss 3.2951, val acc 9.51%.
+- Epoch 3: train loss 3.1925, train acc 12.94%, val loss 3.1717, val acc 12.23%.
+- Epoch 4: train loss 2.9680, train acc 18.10%, val loss 3.0716, val acc 13.99%.
+- Epoch 5: train loss 2.7312, train acc 23.30%, val loss 3.0487, val acc 15.90%.
+- Epoch 6: train loss 2.4746, train acc 30.37%, val loss 3.0692, val acc 15.49%.
+- Epoch 7: train loss 2.1830, train acc 38.04%, val loss 3.2522, val acc 15.49%.
+- Epoch 8: train loss 1.8862, train acc 45.96%, val loss 3.3536, val acc 17.80%.
+- Epoch 9: train loss 1.5569, train acc 55.57%, val loss 3.5849, val acc 17.80%.
+- Epoch 10: train loss 1.2500, train acc 65.18%, val loss 3.9722, val acc 18.75%.
+
+**Best validation accuracy:** 18.75% at epoch 10.
+
+**Results summary - Batch size 64, learning rate 0.0005, 10 epochs**
+
+- Epoch 1: train loss 3.5896, train acc 3.43%, val loss 3.5091, val acc 6.25%.
+- Epoch 2: train loss 3.4221, train acc 7.74%, val loss 3.3225, val acc 7.34%.
+- Epoch 3: train loss 3.2384, train acc 11.72%, val loss 3.2301, val acc 9.51%.
+- Epoch 4: train loss 3.0597, train acc 17.02%, val loss 3.1299, val acc 11.28%.
+- Epoch 5: train loss 2.8794, train acc 19.97%, val loss 3.1073, val acc 12.64%.
+- Epoch 6: train loss 2.7179, train acc 24.86%, val loss 3.0338, val acc 15.22%.
+- Epoch 7: train loss 2.5018, train acc 30.23%, val loss 3.0841, val acc 14.27%.
+- Epoch 8: train loss 2.2981, train acc 35.53%, val loss 3.1428, val acc 13.72%.
+- Epoch 9: train loss 2.0901, train acc 41.24%, val loss 3.2623, val acc 15.62%.
+- Epoch 10: train loss 1.8898, train acc 46.47%, val loss 3.2987, val acc 15.22%.
+
+**Best validation accuracy:** 15.62% at epoch 9.
+
+**Decision:**  
+Batch size `64` learned more slowly than batch size `32`, also achieved weaker validation performance.
+It reached only `15.62%` best validation accuracy, compared with `18.75%` for batch size `32`. 
+The final training accuracy was also lower, `46.47%`.
+This suggests that the larger batch size gave fewer weight updates per epoch and did not learn enough within 10 epochs.

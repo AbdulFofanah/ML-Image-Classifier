@@ -13,8 +13,8 @@ from model import OxfordPetCNN
 MODEL_SAVE_PATH = "model.pth"
 NUM_CLASSES = 37
 NUM_EPOCHS = 10
-LEARNING_RATE = 0.0001
-BATCH_SIZE = 32
+LEARNING_RATE = 0.0005
+BATCH_SIZE = 64
 CHOSEN_SEED = 67
 
 # Python, NumPy, and PyTorch should start the random generator from the same point for reproducibility
