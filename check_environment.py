@@ -11,8 +11,8 @@ def main():
         f"Python version: {sys.version}\n"
         f"PyTorch version: {torch.__version__}\n"
         f"Torchvision version: {torchvision.__version__}\n"
-        f"torchinfo: successfully imported\n"
-        f"tqdm: successfully imported"
+        f"torchinfo version: {torchinfo.__version__}\n"
+        f"tqdm version: {tqdm.__version__}"
     )
 
     print(

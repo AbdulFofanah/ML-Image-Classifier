@@ -26,9 +26,10 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
     image_transformation = transforms.Compose([
         transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),  # small and fast training
         transforms.ToTensor(),
-        transforms.Normalize(mean=TRAINING_MEAN,
-                             std=TRAINING_STD
-                             )
+        transforms.Normalize(
+                              mean=TRAINING_MEAN,
+                              std=TRAINING_STD
+                            )
     ])
 
     trainval_data = OxfordIIITPet(  # Load official trainval dataset

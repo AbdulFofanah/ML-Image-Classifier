@@ -5,13 +5,13 @@ import torchvision.transforms as transforms
 def main():
     print("Oxford-IIIT Pet Dataset Check\n")
 
-    image_prepration = transforms.ToTensor()
+    image_preparation = transforms.ToTensor()
 
     trainval_data = torchvision.datasets.OxfordIIITPet(
         root="./data",
         split="trainval",
         target_types="category",
-        transform=image_prepration,
+        transform=image_preparation,
         download=True,
     )
 
@@ -19,7 +19,7 @@ def main():
         root="./data",
         split="test",
         target_types="category",
-        transform=image_prepration,
+        transform=image_preparation,
         download=True,
     )
 
