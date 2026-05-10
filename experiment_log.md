@@ -101,3 +101,28 @@ This suggests that the baseline CNN is overfitting, memorising the training data
 - Epoch 10: train loss 1.1460, train acc 66.95%, val loss 4.0480, val acc 18.48%.
 
 **Best validation accuracy:** 18.48%, reached at epochs 7 and 10.
+
+**Results summary - Learning rate `1e-4` - `(lr=0.0001, 10 epochs)`**
+
+- Epoch 1: train loss 3.6044, train acc 3.16%, val loss 3.5795, val acc 3.12%.
+- Epoch 2: train loss 3.5092, train acc 6.05%, val loss 3.4318, val acc 6.79%.
+- Epoch 3: train loss 3.3656, train acc 9.14%, val loss 3.3469, val acc 7.34%.
+- Epoch 4: train loss 3.2600, train acc 11.72%, val loss 3.2652, val acc 8.97%.
+- Epoch 5: train loss 3.1636, train acc 14.40%, val loss 3.2322, val acc 11.01%.
+- Epoch 6: train loss 3.0840, train acc 15.42%, val loss 3.2067, val acc 10.73%.
+- Epoch 7: train loss 2.9923, train acc 18.38%, val loss 3.2055, val acc 11.68%.
+- Epoch 8: train loss 2.9051, train acc 19.77%, val loss 3.1710, val acc 12.23%.
+- Epoch 9: train loss 2.8022, train acc 22.15%, val loss 3.1941, val acc 11.55%.
+- Epoch 10: train loss 2.7181, train acc 24.66%, val loss 3.1846, val acc 13.18%.
+
+**Best validation accuracy:** 13.18% at epoch 10.
+
+**Learning-rate comparison**
+
+- `0.001`: best validation accuracy 17.93%, final train accuracy 86.07%, final val loss 5.3296.
+- `0.0005`: best validation accuracy 18.48%, final train accuracy 66.95%, final val loss 4.0480.
+- `0.0001`: best validation accuracy 13.18%, final train accuracy 24.66%, final val loss 3.1846.
+
+**Decision:**  
+`0.0005` is currently the best learning rate for this baseline. It gives the highest validation accuracy, 
+`18.48%`, while overfitting less aggressively than `0.001`. Learning rate `0.0001` is too slow within 10 epochs.
