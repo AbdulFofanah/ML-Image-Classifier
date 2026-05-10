@@ -540,3 +540,35 @@ Safe RandomResizedCrop with scale=(0.8, 1.0) achieved the best augmentation resu
 This slightly improved on the previous best result of 23.78% without augmentation. 
 The improvement was small, but it suggests that mild crop/zoom variation may help the model generalise slightly better than 
 flip, rotation, or colour jitter for this setup.
+
+**Experiment - Safe RandomResizedCrop + RandomHorizontalFlip**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomResizedCrop(size=96, scale=(0.8, 1.0)) + RandomHorizontalFlip(p=0.5)
+- Validation/test augmentation: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5697, train acc 5.88%, val loss 3.4668, val acc 8.56%.
+- Epoch 2: train loss 3.3376, train acc 10.90%, val loss 3.3303, val acc 8.56%.
+- Epoch 3: train loss 3.1150, train acc 13.76%, val loss 3.1341, val acc 12.23%.
+- Epoch 4: train loss 2.9584, train acc 17.66%, val loss 3.1020, val acc 13.45%.
+- Epoch 5: train loss 2.8406, train acc 21.30%, val loss 3.1831, val acc 14.27%.
+- Epoch 6: train loss 2.7168, train acc 23.88%, val loss 2.9797, val acc 16.30%.
+- Epoch 7: train loss 2.6092, train acc 26.83%, val loss 2.8520, val acc 21.60%.
+- Epoch 8: train loss 2.5133, train acc 27.75%, val loss 2.8844, val acc 20.92%.
+- Epoch 9: train loss 2.4468, train acc 29.79%, val loss 2.7533, val acc 25.00%.
+- Epoch 10: train loss 2.3687, train acc 31.69%, val loss 2.9057, val acc 22.01%.
+
+Best validation accuracy:
+- 25.00% at epoch 9.
+
+**Interpretation:**
+Combining safe RandomResizedCrop(scale=(0.8, 1.0)) with RandomHorizontalFlip(p=0.5) produced the best validation accuracy so far at 25.00%.
+This improved over RandomResizedCrop alone at 23.91% and over the previous no-augmentation best of 23.78%.
+The training accuracy stayed relatively low, suggesting that augmentation made memorisation harder while improving generalisation.
