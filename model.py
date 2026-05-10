@@ -15,6 +15,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                 kernel_size=3, # 3x3 patch of pixels
                 padding=1 # keeps the output the same size as the input
             ),
+            nn.BatchNorm2d(16),  # normalises the 16 feature maps to make training more stable
             nn.ReLU(), # all negatives to 0
             nn.MaxPool2d(kernel_size=2), # highest value of 2x2 blocks
 
@@ -24,6 +25,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                 kernel_size=3, # 3x3 patch of pixels
                 padding=1 # keeps the output the same size as the input
             ),
+            nn.BatchNorm2d(32),  # normalises the 32 feature maps to make training more stable
             nn.ReLU(), # all negatives to 0
             nn.MaxPool2d(kernel_size=2),  # highest value of 2x2 blocks
 
@@ -33,6 +35,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                 kernel_size=3,  # 3x3 patch of pixels
                 padding=1 # keeps the output the same size as the input
             ),
+            nn.BatchNorm2d(64),  # normalises the 64 feature maps to make training more stable
             nn.ReLU(), # all negatives to 0
             nn.MaxPool2d(kernel_size=2)  # highest value of 2x2 blocks
         )
@@ -52,7 +55,6 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
 def main():
     basic_model = OxfordPetCNN(num_classes=37)
     temp_batch = torch.randn(32, 3, 64, 64)
-    temp_batch_output = basic_model(temp_batch)
 
     basic_model.eval() # evaluation mode
     with torch.no_grad(): # disable gradient tracking

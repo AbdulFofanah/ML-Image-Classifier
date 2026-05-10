@@ -179,3 +179,68 @@ Batch size `64` learned more slowly than batch size `32`, also achieved weaker v
 It reached only `15.62%` best validation accuracy, compared with `18.75%` for batch size `32`. 
 The final training accuracy was also lower, `46.47%`.
 This suggests that the larger batch size gave fewer weight updates per epoch and did not learn enough within 10 epochs.
+
+## Experiment 5 - Adding BatchNorm
+
+**Experiment - CNN + BatchNorm**
+
+Settings:
+- Architecture: baseline CNN with BatchNorm2d after each Conv2d layer.
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Image size: 64x64
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5289, train acc 7.03%, val loss 3.3935, val acc 9.24%.
+- Epoch 2: train loss 3.2601, train acc 12.40%, val loss 3.1888, val acc 11.96%.
+- Epoch 3: train loss 3.0114, train acc 17.29%, val loss 3.0601, val acc 14.54%.
+- Epoch 4: train loss 2.7697, train acc 23.98%, val loss 2.9512, val acc 17.39%.
+- Epoch 5: train loss 2.5577, train acc 28.60%, val loss 2.9740, val acc 17.39%.
+- Epoch 6: train loss 2.3602, train acc 34.31%, val loss 2.9684, val acc 17.66%.
+- Epoch 7: train loss 2.1639, train acc 40.69%, val loss 2.9517, val acc 18.21%.
+- Epoch 8: train loss 1.9370, train acc 45.96%, val loss 2.9488, val acc 20.92%.
+- Epoch 9: train loss 1.7587, train acc 52.24%, val loss 3.0081, val acc 18.75%.
+- Epoch 10: train loss 1.5509, train acc 58.56%, val loss 2.9871, val acc 21.47%.
+
+Best validation accuracy:
+- 21.47% at epoch 10.
+
+**Decision:** 
+Adding BatchNorm improved the baseline validation accuracy from 18.75% to 21.47%. 
+The validation loss also stayed lower than in the original baseline run.
+THis suggests that BatchNorm made training more stable and helped the model generalise better. 
+However, the model still shows overfitting because training accuracy reached 58.56% while 
+validation accuracy reached only 21.47%.
+
+**Experiment - BatchNorm CNN + Dropout(0.3)**
+
+Settings:
+- Architecture: baseline CNN with BatchNorm2d after each Conv2d layer and Dropout(0.3) after the classifier ReLU.
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Image size: 64x64
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5655, train acc 5.16%, val loss 3.4105, val acc 8.70%.
+- Epoch 2: train loss 3.4067, train acc 7.78%, val loss 3.3143, val acc 9.65%.
+- Epoch 3: train loss 3.2964, train acc 9.44%, val loss 3.2280, val acc 10.73%.
+- Epoch 4: train loss 3.1558, train acc 12.26%, val loss 3.1070, val acc 14.27%.
+- Epoch 5: train loss 3.0841, train acc 13.35%, val loss 3.1023, val acc 15.22%.
+- Epoch 6: train loss 2.9806, train acc 15.69%, val loss 3.0255, val acc 15.22%.
+- Epoch 7: train loss 2.8838, train acc 18.61%, val loss 3.0190, val acc 15.22%.
+- Epoch 8: train loss 2.7692, train acc 21.13%, val loss 2.9878, val acc 15.76%.
+- Epoch 9: train loss 2.7045, train acc 22.28%, val loss 2.9831, val acc 18.21%.
+- Epoch 10: train loss 2.6151, train acc 25.10%, val loss 2.9277, val acc 18.61%.
+
+Best validation accuracy:
+- 18.61% at epoch 10.
+
+**Decision:**
+Adding Dropout(0.3) reduced overfitting because training accuracy only reached 25.10%, 
+compared with 58.56% for the BatchNorm-only model. 
+However, it also reduced validation accuracy from 21.47% to 18.61%. 
+This suggests that 0.3 value was too strong for the classifier at this stage with underfitting so i wont add it
