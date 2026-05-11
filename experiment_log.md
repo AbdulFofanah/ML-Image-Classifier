@@ -735,3 +735,28 @@ Training for longer improved validation accuracy from 26.63% at 10 epochs to 33.
 showing that the model benefited from additional training time. 
 Later epochs the training accuracy rose above 80% while validation accuracy stayed around the low 30% range. 
 This indicates overfitting sop io should do some measure to tackle that
+
+** Visual Geometry Group, 30 epochs**
+
+Settings:
+- Architecture: VGG-style CNN with two Conv2d + BatchNorm2d + ReLU layers before each MaxPool2d.
+- Blocks: 3→32→32, 32→64→64, 64→128→128.
+- Image size: 96x96
+- Training augmentation: corrected RandomResizedCrop(size=96, scale=(0.8, 1.0)) only
+- Validation/test augmentation: deterministic Resize((96, 96))
+- Optimiser: Adam
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 30
+- DataLoader num_workers: 0
+
+Best result:
+- Best validation accuracy: 37.09% at epoch 29.
+- Epoch 29 training accuracy: 88.76%.
+- Epoch 29 validation loss: 2.7174.
+
+Interpretation:
+The VGG-style CNN improved validation accuracy from the previous best of 33.83% to 37.09%.
+This suggests that using two convolutional layers before each pooling operation helped the model learn richer visual features
+for pet breed classification. However, the training accuracy reached 88.76% while validation accuracy was 37.09%,
+indicating overfitting. 
