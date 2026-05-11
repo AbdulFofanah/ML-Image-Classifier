@@ -572,3 +572,39 @@ Best validation accuracy:
 Combining safe RandomResizedCrop(scale=(0.8, 1.0)) with RandomHorizontalFlip(p=0.5) produced the best validation accuracy so far at 25.00%.
 This improved over RandomResizedCrop alone at 23.91% and over the previous no-augmentation best of 23.78%.
 The training accuracy stayed relatively low, suggesting that augmentation made memorisation harder while improving generalisation.
+
+# Experiment 13 AdamW
+
+**Experiment - AdamW with weight_decay=0.0001**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomResizedCrop(size=96, scale=(0.8, 1.0)) + RandomHorizontalFlip(p=0.5)
+- Validation/test augmentation: none
+- Optimiser: AdamW
+- Weight decay: 0.0001
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+
+Results:
+- Epoch 1: train loss 3.5698, train acc 6.39%, val loss 3.4692, val acc 6.66%.
+- Epoch 2: train loss 3.3371, train acc 10.60%, val loss 3.3191, val acc 8.83%.
+- Epoch 3: train loss 3.1167, train acc 13.82%, val loss 3.1637, val acc 12.50%.
+- Epoch 4: train loss 2.9676, train acc 16.88%, val loss 3.0821, val acc 13.72%.
+- Epoch 5: train loss 2.8533, train acc 20.21%, val loss 3.1529, val acc 13.86%.
+- Epoch 6: train loss 2.7419, train acc 23.06%, val loss 2.9972, val acc 16.85%.
+- Epoch 7: train loss 2.6440, train acc 26.05%, val loss 2.8625, val acc 20.38%.
+- Epoch 8: train loss 2.5450, train acc 27.38%, val loss 2.8629, val acc 20.11%.
+- Epoch 9: train loss 2.4872, train acc 28.23%, val loss 2.7828, val acc 22.96%.
+- Epoch 10: train loss 2.4023, train acc 30.23%, val loss 2.9742, val acc 21.33%.
+
+Best validation accuracy:
+- 22.96% at epoch 9.
+
+**Interpretation:**
+AdamW with weight_decay=0.0001 reduced validation accuracy compared with standard Adam. 
+The best validation accuracy dropped from 25.00% with Adam to 22.96% with AdamW. 
+This suggests that this weight decay value added too much regularisation or slowed the useful learning for the current setup,
+so i removed it

@@ -99,7 +99,7 @@ def main():
     model = OxfordPetCNN(num_classes=NUM_CLASSES).to(device) # create the CNN
     loss_function = nn.CrossEntropyLoss() # suitable here as its multi-class classification
 
-    optimiser = optim.Adam(
+    optimiser = optim.Adam(                             # Adaptive Moment Estimation
                             model.parameters(),
                             lr=LEARNING_RATE
                           )
