@@ -76,7 +76,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
         self.classifier = nn.Sequential( # run in this specific order
             nn.Flatten(), # 3d to 1d by multiplying the last 3 dimensions of the tensor together
             nn.Linear(128 * 4 * 4, 128), # turns the flattened image features into 128 learned scores for the classifier
-            nn.ReLU(),
+            nn.ReLU(), # turns all negative values to 0
             nn.Linear(128, num_classes) # maps compressed signals to pet breeds and generates logits
         )
 

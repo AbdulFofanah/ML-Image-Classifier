@@ -760,3 +760,8 @@ The VGG-style CNN improved validation accuracy from the previous best of 33.83% 
 This suggests that using two convolutional layers before each pooling operation helped the model learn richer visual features
 for pet breed classification. However, the training accuracy reached 88.76% while validation accuracy was 37.09%,
 indicating overfitting. 
+
+**VGG-style CNN with Dropout(0.2)**
+Adding Dropout(0.2) reduced overfitting by lowering training accuracy, but it did not improve validation accuracy. 
+The best validation accuracy fell from 37.09% without Dropout to 36.28% with Dropout. 
+This suggests that Dropout(0.2) restricted learning too much for this model, i removed it
