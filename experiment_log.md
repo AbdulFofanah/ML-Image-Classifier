@@ -893,3 +893,10 @@ reduces the learning rate to nearly zero , so it can refine the weights. This sh
 as i am limited to 30 epochs
 7. Learning rate strategy changed from plateau-based LR to batch-by-batch LR cycling as the adjustments go from
 30 per epoch to 2,760 allow it to learn faster
+# Tuning
+MAX_LEARNING_RATE = 0.003
+Training complete
+Training loss (4 decimal places): 0.3614
+Training accuracy: 91.92%
+Validation loss (4 decimal places): 1.2746
+Validation accuracy: 63.99%
