@@ -912,3 +912,13 @@ Learning rate going into next epoch: 0.000016
 
 Training complete
 The best validation accuracy: 65.22%
+
+**AdamW with Label Smoothing (0.05), Lowered Max LR (0.002), and 50% Flip**
+Training loss (4 decimal places): 0.8429
+Training accuracy: 90.52
+Validation loss (4 decimal places): 1.5448
+Validation accuracy: 65.90
+Epoch time: 18.42 seconds
+Learning rate at the end of the epoch: 0.000011
+Learning rate going into next epoch: 0.000011
+Result: Training complete. Best validation accuracy: 65.90

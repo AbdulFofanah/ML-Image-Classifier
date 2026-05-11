@@ -28,7 +28,7 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
                                         size=IMAGE_SIZE,
                                         scale=(0.7, 1.0)
                                     ),
-        transforms.RandomHorizontalFlip(p=0.15),
+        transforms.RandomHorizontalFlip(p=0.5),
         transforms.ToTensor(),
         transforms.Normalize(
                               mean=TRAINING_MEAN,
