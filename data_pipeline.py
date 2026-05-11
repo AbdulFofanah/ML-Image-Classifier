@@ -26,7 +26,7 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
     training_transformation = transforms.Compose([
         transforms.RandomResizedCrop(
                                         size=IMAGE_SIZE,
-                                        scale=(0.8, 1.0)
+                                        scale=(0.7, 1.0)
                                     ),
         transforms.ToTensor(),
         transforms.Normalize(

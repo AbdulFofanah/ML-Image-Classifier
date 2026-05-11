@@ -765,3 +765,28 @@ indicating overfitting.
 Adding Dropout(0.2) reduced overfitting by lowering training accuracy, but it did not improve validation accuracy. 
 The best validation accuracy fell from 37.09% without Dropout to 36.28% with Dropout. 
 This suggests that Dropout(0.2) restricted learning too much for this model, i removed it
+
+# Experiment 50
+**Experiment - VGG style CNN with stronger ((0.7)) RandomResizedCrop, 30 epochs**
+
+Settings:
+- Architecture: VGG-style CNN without Dropout.
+- Image size: 96x96
+- Training augmentation: RandomResizedCrop(size=96, scale=(0.7, 1.0))
+- Validation/test augmentation: deterministic Resize((96, 96))
+- Loss function: CrossEntropyLoss()
+- Optimiser: Adam
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 30
+- DataLoader num_workers: 0
+
+Best result:
+- Best validation accuracy: 38.32% at epoch 30.
+- Epoch 30 training accuracy: 82.13%.
+- Epoch 30 validation loss: 2.6163.
+
+Interpretation:
+Strengthening the RandomResizedCrop augmentation from scale=(0.8, 1.0) to scale=(0.7, 1.0) improved validation accuracy
+from the previous best of 37.09% to 38.32%.
+This suggests that stronger crop/zoom variation helped reduce overfitting and improved generalisation to unseen validation images.
