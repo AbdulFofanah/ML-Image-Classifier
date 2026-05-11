@@ -790,3 +790,17 @@ Interpretation:
 Strengthening the RandomResizedCrop augmentation from scale=(0.8, 1.0) to scale=(0.7, 1.0) improved validation accuracy
 from the previous best of 37.09% to 38.32%.
 This suggests that stronger crop/zoom variation helped reduce overfitting and improved generalisation to unseen validation images.
+
+
+# experient whatever - fine tuning
+Experiment: 3-block VGG, lower learning rate
+Architecture: 3-block VGG-style CNN with BatchNorm and AdaptiveAvgPool2d((4,4))
+Training transform: RandomResizedCrop scale=(0.7,1.0), image size 96
+Validation transform: Resize 96, ToTensor, Normalize
+Loss: CrossEntropyLoss
+Optimiser: Adam
+Learning rate: 0.0003
+Batch size: 32
+Epochs: 30
+Best validation accuracy: 39.95%
+Best epoch: 29
