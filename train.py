@@ -102,10 +102,11 @@ def main():
     model = OxfordPetCNN(num_classes=NUM_CLASSES).to(device) # create the CNN
     loss_function = nn.CrossEntropyLoss() # suitable here because its multi-class classification
 
-    optimiser = optim.Adam(                             # Adaptive Moment Estimation
-                            model.parameters(),
-                            lr=LEARNING_RATE
-                          )
+    optimiser = optim.AdamW( # Adaptive moment estimation with weight decay
+                                model.parameters(),
+                                lr=LEARNING_RATE,
+                                weight_decay=1e-4
+                            )
 
     # OneCycleLR trains faster in fewer epochs (30 epoch limit)
     # 1-Cycle Policy rapidly increases the learning rate to a peak taking the model out of a bad minima
@@ -156,7 +157,7 @@ def main():
 
         print(f"Epoch time: {epoch_time:.2f} seconds")
         current_learning_rate = optimiser.param_groups[0]["lr"]     # reads the learning rate being used in the current epoch
-        print(f"Learning rate before scheduler update: {current_learning_rate:.6f}")
+        print(f"Learning rate at the end of the epoch: {current_learning_rate:.6f}")
 
 
         if validation_accuracy > best_validation_accuracy:
@@ -166,7 +167,7 @@ def main():
 
 
         updated_learning_rate = optimiser.param_groups[0]["lr"]  # reads the learning rate that will be used next epoch
-        print(f"Learning rate for next epoch: {updated_learning_rate:.6f}")
+        print(f"Learning rate going into next epoch: {updated_learning_rate:.6f}")
 
 
     print(

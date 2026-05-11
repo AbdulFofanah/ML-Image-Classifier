@@ -894,9 +894,21 @@ as i am limited to 30 epochs
 7. Learning rate strategy changed from plateau-based LR to batch-by-batch LR cycling as the adjustments go from
 30 per epoch to 2,760 allow it to learn faster
 # Tuning
-MAX_LEARNING_RATE = 0.003
+**MAX_LEARNING_RATE = 0.003**
 Training complete
 Training loss (4 decimal places): 0.3614
 Training accuracy: 91.92%
 Validation loss (4 decimal places): 1.2746
 Validation accuracy: 63.99%
+
+**AdamW with ie-4 weight decay 0.0001**
+Training loss (4 decimal places): 0.3288
+Training accuracy: 93.58%
+Validation loss (4 decimal places): 1.2721
+Validation accuracy: 65.22%
+Epoch time: 18.56 seconds
+Learning rate at the end of the epoch: 0.000016
+Learning rate going into next epoch: 0.000016
+
+Training complete
+The best validation accuracy: 65.22%
