@@ -710,3 +710,28 @@ I tested adding RandomHorizontalFlip(p=0.5).
 This reduced validation accuracy from 26.63% with crop-only to 23.23%. 
 Therefore, horizontal flipping did not help this corrected augmentation setup
 , I removed it
+
+# Experiment 14 - 30 epoch experiemnt
+** longer training of current setup**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: corrected RandomResizedCrop(size=96, scale=(0.8, 1.0)) only
+- Validation/test augmentation: none; deterministic Resize((96, 96))
+- Optimiser: Adam
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 30
+- DataLoader num_workers: 0
+
+Best result:
+- Best validation accuracy: 33.83% at epoch 29.
+- Epoch 29 training accuracy: 81.52%.
+- Epoch 29 validation loss: 2.9066.
+
+**Interpretation:**
+Training for longer improved validation accuracy from 26.63% at 10 epochs to 33.83% at 30 epochs,
+showing that the model benefited from additional training time. 
+Later epochs the training accuracy rose above 80% while validation accuracy stayed around the low 30% range. 
+This indicates overfitting sop io should do some measure to tackle that

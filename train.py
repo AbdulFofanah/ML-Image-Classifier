@@ -12,7 +12,7 @@ from model import OxfordPetCNN
 
 MODEL_SAVE_PATH = "model.pth"
 NUM_CLASSES = 37
-NUM_EPOCHS = 10
+NUM_EPOCHS = 30
 LEARNING_RATE = 0.0005
 BATCH_SIZE = 32
 CHOSEN_SEED = 67
@@ -97,7 +97,7 @@ def main():
 
 
     model = OxfordPetCNN(num_classes=NUM_CLASSES).to(device) # create the CNN
-    loss_function = nn.CrossEntropyLoss() # suitable here beacuse its multi-class classification
+    loss_function = nn.CrossEntropyLoss() # suitable here because its multi-class classification
 
     optimiser = optim.Adam(                             # Adaptive Moment Estimation
                             model.parameters(),
