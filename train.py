@@ -104,6 +104,14 @@ def main():
                             lr=LEARNING_RATE
                           )
 
+    # learning-rate scheduler - lowers learning rate during training when validation accuracy stops improving
+    scheduler = optim.lr_scheduler.ReduceLROnPlateau(
+                                                        optimiser,  # controls the learning rate used by this Adam optimiser
+                                                        mode="max",  # higher validation accuracy is better to track
+                                                        factor=0.5,  # halves the LR
+                                                        patience=3  # waits 3 epochs without improvement before reducing LR
+                                                    )
+
     best_validation_accuracy = 0.0
 
     for epoch in range(NUM_EPOCHS):
@@ -141,11 +149,19 @@ def main():
         )
 
         print(f"Epoch time: {epoch_time:.2f} seconds")
+        current_learning_rate = optimiser.param_groups[0]["lr"]     # reads the learning rate being used in the current epoch
+        print(f"Learning rate before scheduler update: {current_learning_rate:.6f}")
+
 
         if validation_accuracy > best_validation_accuracy:
             best_validation_accuracy = validation_accuracy
             torch.save(model.state_dict(), MODEL_SAVE_PATH)
             print(f"Saved the new best model to {MODEL_SAVE_PATH}")
+
+        scheduler.step(validation_accuracy)  # gives the scheduler the latest validation accuracy so it can decide whether to reduce LR
+        updated_learning_rate = optimiser.param_groups[0]["lr"]  # reads the learning rate that will be used next epoch
+        print(f"Learning rate for next epoch: {updated_learning_rate:.6f}")
+
 
     print(
         f"\nTraining complete\n"

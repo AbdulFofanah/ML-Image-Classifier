@@ -812,3 +812,13 @@ Training accuracy: 73.71%
 Validation loss (4 decimal places): 2.2806
 Validation accuracy: 40.62%
 Epoch time: 15.80 seconds
+
+Experiment : Adam + ReduceLROnPlateau(mode="max", factor=0.5, patience=3)
+The best validation accuracy: 44.16%
+Training loss (4 decimal places): 0.9456
+Training accuracy: 74.49%
+Validation loss (4 decimal places): 2.1255
+Validation accuracy: 42.66%
+Epoch time: 17.81 seconds
+Learning rate before scheduler update: 0.000075
+Learning rate for next epoch: 0.000075
