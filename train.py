@@ -13,7 +13,8 @@ from model import OxfordPetCNN
 MODEL_SAVE_PATH = "model.pth"
 NUM_CLASSES = 37
 NUM_EPOCHS = 30
-LEARNING_RATE = 0.0004
+LEARNING_RATE = 0.001
+MAX_LEARNING_RATE = 0.002
 BATCH_SIZE = 32
 CHOSEN_SEED = 67
 
@@ -24,7 +25,7 @@ def set_seed(seed=CHOSEN_SEED):
     torch.manual_seed(seed)            # controls PyTorch randomness on CPU
     torch.cuda.manual_seed_all(seed)   # controls PyTorch randomness on GPU.
 
-def train_one_epoch(model, training_loader, loss_function, optimiser, device):
+def train_one_epoch(model, training_loader, loss_function, optimiser, device, scheduler):
     model.train() # Training mode
 
     total_loss_across_epoch = 0.0
@@ -41,6 +42,8 @@ def train_one_epoch(model, training_loader, loss_function, optimiser, device):
 
         loss.backward() # backpropagation - calculates the gradients
         optimiser.step() # update the weights
+
+        scheduler.step() # Adjusts the learning rate after every batch to follow the smooth 1-Cycle ramp-up and cool-down curve.
 
         # loss.item() = plain number value of the loss
         # batch_images.size(0) = number of images in the batch.
@@ -104,13 +107,15 @@ def main():
                             lr=LEARNING_RATE
                           )
 
-    # learning-rate scheduler - lowers learning rate during training when validation accuracy stops improving
-    scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-                                                        optimiser,   # controls the learning rate used by this Adam optimiser
-                                                        mode="max",  # higher validation accuracy is better to track
-                                                        factor=0.25, # splits the LR in a quarter
-                                                        patience=3   # waits 3 epochs without improvement before reducing LR
-                                                    )
+    # OneCycleLR trains faster in fewer epochs (30 epoch limit)
+    # 1-Cycle Policy rapidly increases the learning rate to a peak taking the model out of a bad minima
+    # It then reduces the learning rate to nearly zero , so it can refine the weights
+    scheduler = optim.lr_scheduler.OneCycleLR(
+                                                optimiser,
+                                                max_lr=MAX_LEARNING_RATE,  # ramps-up to a max to break local minima then back down to refine
+                                                epochs=NUM_EPOCHS,
+                                                steps_per_epoch=len(training_loader) # number of batches in one epoch
+                                            )
 
     best_validation_accuracy = 0.0
 
@@ -124,7 +129,8 @@ def main():
                                                             training_loader,
                                                             loss_function,
                                                             optimiser,
-                                                            device
+                                                            device,
+                                                            scheduler
                                                           )
 
         # Evaluate the model on the validation set
@@ -158,7 +164,7 @@ def main():
             torch.save(model.state_dict(), MODEL_SAVE_PATH)
             print(f"Saved the new best model to {MODEL_SAVE_PATH}")
 
-        scheduler.step(validation_accuracy)  # gives the scheduler the latest validation accuracy so it can decide whether to reduce LR
+
         updated_learning_rate = optimiser.param_groups[0]["lr"]  # reads the learning rate that will be used next epoch
         print(f"Learning rate for next epoch: {updated_learning_rate:.6f}")
 

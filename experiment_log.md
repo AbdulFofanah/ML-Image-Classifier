@@ -849,3 +849,46 @@ Training accuracy = 78.74%
 Validation loss = 1.9196
 Learning rate = 0.000100
 The best validation accuracy: 48.10%
+
+# New scheduler and higher image size
+Experiment: 112x112 + 4-Block CNN + OneCycleLR
+IMAGE_SIZE = 112
+4-block VGG-style CNN
+AdaptiveAvgPool2d((1,1))
+Classifier: Linear(256 → 37)
+Adam optimiser
+Initial learning rate = 0.001
+OneCycleLR scheduler
+max_lr = 0.002
+RandomResizedCrop scale=(0.7,1.0)
+RandomHorizontalFlip p=0.15
+CrossEntropyLoss
+Batch size = 32
+Seed = 67
+
+Training loss (4 decimal places): 0.3963
+Training accuracy: 91.30%
+Validation loss (4 decimal places): 1.2747
+Validation accuracy: 63.32%
+Epoch time: 17.87 seconds
+Learning rate before scheduler update: 0.000000
+Saved the new best model to model.pth
+Learning rate for next epoch: 0.000000
+
+Training complete
+The best validation accuracy: 63.32%
+
+I made a couple of major changes tha were necessary to compute the higher image size effectively:
+1. Image size increased from 96x96 to 112x112.
+2. Architecture changed from a 3-block CNN to a 4-block CNN to process those new details
+3. Final feature depth increased from 128 channels to 256 channels as there was an additional block
+4. Pooling changed from AdaptiveAvgPool2d((4,4)) to AdaptiveAvgPool2d((1,1)) - Taking 1x1 averages out the entire feature map
+5. Classifier changed from a hidden-layer classifier to a direct Linear(256 → 37) classifier - 
+rreduced the amount of parameters to learn from, from the hidden layer which in theory 
+reduces over fit as it reduces the models ability to memorise training data (9,472 parameters)
+6. Scheduler changed from ReduceLROnPlateau to OneCycleLR -
+1-Cycle Policy rapidly increases the learning rate to a peak taking the model out of a bad minimas and then
+reduces the learning rate to nearly zero , so it can refine the weights. This should allow us to train faster
+as i am limited to 30 epochs
+7. Learning rate strategy changed from plateau-based LR to batch-by-batch LR cycling as the adjustments go from
+30 per epoch to 2,760 allow it to learn faster
