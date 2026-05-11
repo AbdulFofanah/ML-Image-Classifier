@@ -826,6 +826,26 @@ Learning rate for next epoch: 0.000075
 Experiment : Adam + ReduceLROnPlateau(mode="max", factor=0.5, patience=3) + Learning rate 0.0004:
 Best validation accuracy = 45.24%
 Best epoch = 29
+Epoch 29
+Training loss = 0.8624
+Training accuracy = 75.65%
+Validation loss = 1.9877
+Validation accuracy = 45.24%
+LR = 0.000200
 
 Experiment : Adam + ReduceLROnPlateau(mode="max", factor=0.25, patience=3) + Learning rate 0.0004:
 Best validation accuracy = 47.55%
+Epoch 29
+Training loss = 0.7704
+Training accuracy = 78.80%
+Validation loss = 1.8724
+Validation accuracy = 47.55%
+LR = 0.000100
+
+Experiment : transforms.RandomHorizontalFlip(p=0.15),
+Epoch 27
+Validation accuracy = 48.10%
+Training accuracy = 78.74%
+Validation loss = 1.9196
+Learning rate = 0.000100
+The best validation accuracy: 48.10%

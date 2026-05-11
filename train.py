@@ -108,7 +108,7 @@ def main():
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
                                                         optimiser,   # controls the learning rate used by this Adam optimiser
                                                         mode="max",  # higher validation accuracy is better to track
-                                                        factor=0.25, # halves the LR
+                                                        factor=0.25, # splits the LR in a quarter
                                                         patience=3   # waits 3 epochs without improvement before reducing LR
                                                     )
 
