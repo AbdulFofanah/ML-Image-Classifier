@@ -608,3 +608,37 @@ AdamW with weight_decay=0.0001 reduced validation accuracy compared with standar
 The best validation accuracy dropped from 25.00% with Adam to 22.96% with AdamW. 
 This suggests that this weight decay value added too much regularisation or slowed the useful learning for the current setup,
 so i removed it
+
+**Experiment - Adam + CosineAnnealingLR**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomResizedCrop(size=96, scale=(0.8, 1.0)) + RandomHorizontalFlip(p=0.5)
+- Validation/test augmentation: none
+- Optimiser: Adam
+- Initial learning rate: 0.0005
+- Scheduler: CosineAnnealingLR with T_max=10
+- Batch size: 32
+- Epochs: 10
+
+Results:
+- Epoch 1: train loss 3.5685, train acc 5.98%, val loss 3.4858, val acc 7.88%, lr 0.00048776.
+- Epoch 2: train loss 3.3342, train acc 10.60%, val loss 3.3285, val acc 8.29%, lr 0.00045225.
+- Epoch 3: train loss 3.1028, train acc 14.06%, val loss 3.1483, val acc 12.50%, lr 0.00039695.
+- Epoch 4: train loss 2.9476, train acc 17.43%, val loss 3.0699, val acc 13.59%, lr 0.00032725.
+- Epoch 5: train loss 2.8254, train acc 20.75%, val loss 3.1055, val acc 15.22%, lr 0.00025000.
+- Epoch 6: train loss 2.7040, train acc 25.10%, val loss 2.9618, val acc 16.44%, lr 0.00017275.
+- Epoch 7: train loss 2.6111, train acc 27.24%, val loss 2.9219, val acc 18.89%, lr 0.00010305.
+- Epoch 8: train loss 2.5338, train acc 28.46%, val loss 2.8467, val acc 20.65%, lr 0.00004775.
+- Epoch 9: train loss 2.4850, train acc 30.84%, val loss 2.7967, val acc 21.74%, lr 0.00001224.
+- Epoch 10: train loss 2.4582, train acc 31.05%, val loss 2.8030, val acc 21.47%, lr 0.00000000.
+
+Best validation accuracy:
+- 21.74% at epoch 9.
+
+**Interpretation:**
+CosineAnnealingLR reduced validation accuracy compared with the fixed learning-rate Adam setup.
+The best validation accuracy dropped from 25.00% to 21.74%. The learning rate decayed very low by the final epochs,
+reaching almost zero, which likely slowed the useful learning too much within the 10-epoch experiment - might perform
+better when doing it on higher epochs. removed ti for the time being btu will test again at higher epochs
