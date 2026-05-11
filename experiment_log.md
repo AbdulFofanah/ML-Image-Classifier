@@ -804,3 +804,11 @@ Batch size: 32
 Epochs: 30
 Best validation accuracy: 39.95%
 Best epoch: 29
+
+experiment: transforms.RandomHorizontalFlip(p=0.25),
+The best validation accuracy: 40.62%
+Training loss (4 decimal places): 0.8974
+Training accuracy: 73.71%
+Validation loss (4 decimal places): 2.2806
+Validation accuracy: 40.62%
+Epoch time: 15.80 seconds
