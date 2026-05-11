@@ -877,6 +877,7 @@ Learning rate for next epoch: 0.000000
 
 Training complete
 The best validation accuracy: 63.32%
+re-run - The best validation accuracy: 63.86%
 
 I made a couple of major changes tha were necessary to compute the higher image size effectively:
 1. Image size increased from 96x96 to 112x112.
