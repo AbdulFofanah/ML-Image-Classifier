@@ -13,7 +13,7 @@ from model import OxfordPetCNN
 MODEL_SAVE_PATH = "model.pth"
 NUM_CLASSES = 37
 NUM_EPOCHS = 30
-LEARNING_RATE = 0.0003
+LEARNING_RATE = 0.0004
 BATCH_SIZE = 32
 CHOSEN_SEED = 67
 
@@ -106,10 +106,10 @@ def main():
 
     # learning-rate scheduler - lowers learning rate during training when validation accuracy stops improving
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(
-                                                        optimiser,  # controls the learning rate used by this Adam optimiser
+                                                        optimiser,   # controls the learning rate used by this Adam optimiser
                                                         mode="max",  # higher validation accuracy is better to track
-                                                        factor=0.5,  # halves the LR
-                                                        patience=3  # waits 3 epochs without improvement before reducing LR
+                                                        factor=0.25, # halves the LR
+                                                        patience=3   # waits 3 epochs without improvement before reducing LR
                                                     )
 
     best_validation_accuracy = 0.0

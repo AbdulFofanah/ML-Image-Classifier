@@ -822,3 +822,10 @@ Validation accuracy: 42.66%
 Epoch time: 17.81 seconds
 Learning rate before scheduler update: 0.000075
 Learning rate for next epoch: 0.000075
+
+Experiment : Adam + ReduceLROnPlateau(mode="max", factor=0.5, patience=3) + Learning rate 0.0004:
+Best validation accuracy = 45.24%
+Best epoch = 29
+
+Experiment : Adam + ReduceLROnPlateau(mode="max", factor=0.25, patience=3) + Learning rate 0.0004:
+Best validation accuracy = 47.55%
