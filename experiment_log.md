@@ -642,3 +642,37 @@ CosineAnnealingLR reduced validation accuracy compared with the fixed learning-r
 The best validation accuracy dropped from 25.00% to 21.74%. The learning rate decayed very low by the final epochs,
 reaching almost zero, which likely slowed the useful learning too much within the 10-epoch experiment - might perform
 better when doing it on higher epochs. removed ti for the time being btu will test again at higher epochs
+
+# Fixing mistake made in augmentation
+**Experiment - RandomResizedCrop only**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomResizedCrop(size=96, scale=(0.8, 1.0))
+- Validation/test augmentation: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5381, train acc 6.22%, val loss 3.4159, val acc 8.15%.
+- Epoch 2: train loss 3.2367, train acc 13.52%, val loss 3.1963, val acc 12.23%.
+- Epoch 3: train loss 3.0359, train acc 16.41%, val loss 3.0767, val acc 14.67%.
+- Epoch 4: train loss 2.8510, train acc 20.75%, val loss 3.0318, val acc 16.03%.
+- Epoch 5: train loss 2.7086, train acc 24.86%, val loss 2.9702, val acc 17.12%.
+- Epoch 6: train loss 2.5667, train acc 28.26%, val loss 2.8238, val acc 19.70%.
+- Epoch 7: train loss 2.4446, train acc 30.37%, val loss 2.8029, val acc 22.42%.
+- Epoch 8: train loss 2.3191, train acc 34.44%, val loss 2.6790, val acc 23.64%.
+- Epoch 9: train loss 2.1924, train acc 38.25%, val loss 2.7205, val acc 23.64%.
+- Epoch 10: train loss 2.0705, train acc 41.51%, val loss 2.6674, val acc 26.63%.
+
+Best validation accuracy:
+- 26.63% at epoch 10.
+
+Interpretation:
+After correcting RandomResizedCrop so that it operated directly on the original image rather than after an initial Resize
+crop-only augmentation achieved the best validation accuracy so far at 26.63%. 
+This improved over the previous no-augmentation result of 23.78% and suggested that a crop variation
+helps the model generalise better.
