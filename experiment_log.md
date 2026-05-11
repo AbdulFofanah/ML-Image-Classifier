@@ -671,8 +671,42 @@ Results:
 Best validation accuracy:
 - 26.63% at epoch 10.
 
-Interpretation:
+**Interpretation**
 After correcting RandomResizedCrop so that it operated directly on the original image rather than after an initial Resize
 crop-only augmentation achieved the best validation accuracy so far at 26.63%. 
 This improved over the previous no-augmentation result of 23.78% and suggested that a crop variation
 helps the model generalise better.
+
+**Experiment - Corrected RandomResizedCrop + RandomHorizontalFlip**
+
+Settings:
+- Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)).
+- Image size: 96x96
+- Training augmentation: RandomResizedCrop(size=96, scale=(0.8, 1.0)) + RandomHorizontalFlip(p=0.5)
+- Validation/test augmentation: none
+- Learning rate: 0.0005
+- Batch size: 32
+- Epochs: 10
+- Optimiser: Adam
+
+Results:
+- Epoch 1: train loss 3.5345, train acc 6.45%, val loss 3.4190, val acc 8.97%.
+- Epoch 2: train loss 3.2386, train acc 11.68%, val loss 3.1993, val acc 12.09%.
+- Epoch 3: train loss 3.0348, train acc 16.00%, val loss 3.2111, val acc 11.96%.
+- Epoch 4: train loss 2.9254, train acc 18.68%, val loss 2.9852, val acc 16.71%.
+- Epoch 5: train loss 2.7842, train acc 22.11%, val loss 2.9206, val acc 17.26%.
+- Epoch 6: train loss 2.6843, train acc 24.18%, val loss 2.9810, val acc 16.03%.
+- Epoch 7: train loss 2.5887, train acc 28.29%, val loss 2.8258, val acc 18.48%.
+- Epoch 8: train loss 2.4980, train acc 28.80%, val loss 2.7521, val acc 21.74%.
+- Epoch 9: train loss 2.4050, train acc 31.66%, val loss 2.6629, val acc 22.01%.
+- Epoch 10: train loss 2.3228, train acc 33.53%, val loss 2.6430, val acc 23.23%.
+
+Best validation accuracy:
+- 23.23% at epoch 10.
+
+**Interpretation:**
+After correcting RandomResizedCrop so that it operates directly on the original image, 
+I tested adding RandomHorizontalFlip(p=0.5). 
+This reduced validation accuracy from 26.63% with crop-only to 23.23%. 
+Therefore, horizontal flipping did not help this corrected augmentation setup
+, I removed it
