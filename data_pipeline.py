@@ -15,7 +15,7 @@ TRAINING_MEAN = [0.479322, 0.446042, 0.395331]
 TRAINING_STD = [0.255698, 0.250303, 0.258181]
 
 IMAGE_SIZE = 112  # upgraded to 112 to give the model more visual details
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 SPLIT_SEED = 67
 VALIDATION_RATIO = 0.2
 NUMBER_OF_WORKERS = 0
@@ -28,7 +28,7 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
                                         size=IMAGE_SIZE,
                                         scale=(0.7, 1.0)
                                     ),
-        transforms.RandomHorizontalFlip(p=0.5),
+        transforms.RandomHorizontalFlip(p=0.5), # randomly fddlips the image
         transforms.ToTensor(),
         transforms.Normalize(
                               mean=TRAINING_MEAN,

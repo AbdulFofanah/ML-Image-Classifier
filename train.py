@@ -15,7 +15,7 @@ NUM_CLASSES = 37
 NUM_EPOCHS = 30
 LEARNING_RATE = 0.001
 MAX_LEARNING_RATE = 0.002
-BATCH_SIZE = 32
+BATCH_SIZE = 16
 CHOSEN_SEED = 67
 
 # Python, NumPy, and PyTorch should start the random generator from the same point for reproducibility

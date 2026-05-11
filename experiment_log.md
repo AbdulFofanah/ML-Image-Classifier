@@ -766,7 +766,7 @@ Adding Dropout(0.2) reduced overfitting by lowering training accuracy, but it di
 The best validation accuracy fell from 37.09% without Dropout to 36.28% with Dropout. 
 This suggests that Dropout(0.2) restricted learning too much for this model, i removed it
 
-# Experiment 50
+# Experiment 15
 **Experiment - VGG style CNN with stronger ((0.7)) RandomResizedCrop, 30 epochs**
 
 Settings:
@@ -922,3 +922,13 @@ Epoch time: 18.42 seconds
 Learning rate at the end of the epoch: 0.000011
 Learning rate going into next epoch: 0.000011
 Result: Training complete. Best validation accuracy: 65.90
+
+**BATCH_SIZE = 16**
+Training loss (4 decimal places): 0.8934
+Training accuracy: 88.04%
+Validation loss (4 decimal places): 1.4867
+Validation accuracy: 67.39%
+Epoch time: 17.97 seconds
+Learning rate at the end of the epoch: 0.000044
+Saved the new best model to model.pth
+Learning rate going into next epoch: 0.000044
