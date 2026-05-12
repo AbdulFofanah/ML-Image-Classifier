@@ -115,7 +115,9 @@ def main():
                                                 optimiser,
                                                 max_lr=MAX_LEARNING_RATE,  # ramps-up to a max to break local minima then back down to refine
                                                 epochs=NUM_EPOCHS,
-                                                steps_per_epoch=len(training_loader) # number of batches in one epoch
+                                                steps_per_epoch=len(training_loader), # number of batches in one epoch
+                                                # pct_start - the model spends 40% of the time (12 epochs) climbing up to maximum speed
+                                                pct_start = 0.4  # Shifts the peak to 40% of the run
                                             )
 
     best_validation_accuracy = 0.0
