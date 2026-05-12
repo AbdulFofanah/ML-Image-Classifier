@@ -17,7 +17,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of pixels
                         padding=1  # keeps the output the same height and width as the input
                     ),
-            nn.BatchNorm2d(32),  # normalises the 32 feature maps to make training more stable
+            nn.BatchNorm2d(32, momentum=0.05),  # normalises the 32 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
 
             nn.Conv2d(
@@ -26,7 +26,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of features
                         padding=1  # keeps the output the same height and width
                     ),
-            nn.BatchNorm2d(32),  # normalises the 32 feature maps to make training more stable
+            nn.BatchNorm2d(32, momentum=0.05),  # normalises the 32 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
             nn.MaxPool2d(kernel_size=2),  # keeps the highest value in each 2x2 block and halves the image size
 
@@ -37,7 +37,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of features
                         padding=1  # keeps the output the same height and width
                     ),
-            nn.BatchNorm2d(64),  # normalises the 64 feature maps to make training more stable
+            nn.BatchNorm2d(64, momentum=0.05),  # normalises the 64 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
 
             nn.Conv2d(
@@ -46,7 +46,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of features
                         padding=1  # keeps the output the same height and width
                     ),
-            nn.BatchNorm2d(64),  # normalises the 64 feature maps to make training more stable
+            nn.BatchNorm2d(64, momentum=0.05),  # normalises the 64 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
             nn.MaxPool2d(kernel_size=2),  # keeps the highest value in each 2x2 block and halves the image size
 
@@ -57,7 +57,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of features
                         padding=1  # keeps the output the same height and width
                     ),
-            nn.BatchNorm2d(128),  # normalises the 128 feature maps to make training more stable
+            nn.BatchNorm2d(128, momentum=0.05),  # normalises the 128 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
 
             nn.Conv2d(
@@ -66,7 +66,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of features
                         padding=1  # keeps the output the same height and width
                     ),
-            nn.BatchNorm2d(128),  # normalises the 128 feature maps to make training more stable
+            nn.BatchNorm2d(128, momentum=0.05),  # normalises the 128 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
             nn.MaxPool2d(kernel_size=2),  # keeps the highest value in each 2x2 block and halves the image size
 
@@ -77,7 +77,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of features
                         padding=1  # keeps the output the same height and width
                     ),
-            nn.BatchNorm2d(256),  # normalises the 256 feature maps to make training more stable
+            nn.BatchNorm2d(256, momentum=0.05),  # normalises the 256 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
 
             nn.Conv2d(
@@ -86,7 +86,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
                         kernel_size=3,  # 3x3 patch of features
                         padding=1  # keeps the output the same height and width
                     ),
-            nn.BatchNorm2d(256),  # normalises the 256 feature maps to make training more stable
+            nn.BatchNorm2d(256, momentum=0.05),  # normalises the 256 feature maps to make training more stable
             nn.ReLU(),  # turns all negative values to 0
             nn.MaxPool2d(kernel_size=2),  # keeps the highest value in each 2x2 block and halves the image size
 

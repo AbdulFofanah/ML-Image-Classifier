@@ -924,6 +924,8 @@ Learning rate going into next epoch: 0.000011
 Result: Training complete. Best validation accuracy: 65.90
 
 **BATCH_SIZE = 16**
+- This allows my scheduler to have more iterations before it decides its learning rate
+- In addition this also doubles the weight corrections in a single epoch.
 Training loss (4 decimal places): 0.8934
 Training accuracy: 88.04%
 Validation loss (4 decimal places): 1.4867
@@ -932,3 +934,18 @@ Epoch time: 17.97 seconds
 Learning rate at the end of the epoch: 0.000044
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000044
+
+- **BatchNorm momentum = 0.05**
+IMAGE_SIZE = 112
+BATCH_SIZE = 16
+MAX_LEARNING_RATE = 0.002
+AdamW weight_decay = 1e-4
+label_smoothing = 0.05
+RandomResizedCrop scale=(0.7, 1.0)
+RandomHorizontalFlip p=0.5
+BatchNorm momentum = 0.05
+No rotation
+No ColorJitter
+4-block CNN + Global Average Pooling
+Best validation accuracy = 67.93%
+Best epoch = 29
