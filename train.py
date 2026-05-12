@@ -24,6 +24,8 @@ def set_seed(seed=CHOSEN_SEED):
     np.random.seed(seed)               # controls NumPy randomness.
     torch.manual_seed(seed)            # controls PyTorch randomness on CPU
     torch.cuda.manual_seed_all(seed)   # controls PyTorch randomness on GPU.
+    torch.backends.cudnn.deterministic = True
+    torch.backends.cudnn.benchmark = False
 
 def train_one_epoch(model, training_loader, loss_function, optimiser, device, scheduler):
     model.train() # Training mode
@@ -105,7 +107,7 @@ def main():
     optimiser = optim.AdamW( # Adaptive moment estimation with weight decay
                                 model.parameters(),
                                 lr=LEARNING_RATE,
-                                weight_decay=1e-4
+                                weight_decay=1e-3
                             )
 
     # OneCycleLR trains faster in fewer epochs (30 epoch limit)

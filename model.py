@@ -98,7 +98,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
         # This in theory reduces over fit and reduces the models ability to memorise training data
         self.classifier = nn.Sequential( # run in this specific order
             nn.Flatten(), # 3d to 1d by multiplying the last 3 dimensions of the tensor together
-            nn.Dropout(p=0.05),
+            nn.Dropout(p=0.15),
             nn.Linear(512, num_classes) # maps the 256 global features directly to pet breeds to generate logits
         )
 
