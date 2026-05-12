@@ -949,3 +949,19 @@ No ColorJitter
 4-block CNN + Global Average Pooling
 Best validation accuracy = 67.93%
 Best epoch = 29
+
+**Dropout 0.05**
+IMAGE_SIZE = 112
+BATCH_SIZE = 16
+MAX_LEARNING_RATE = 0.002
+AdamW weight_decay = 1e-4
+label_smoothing = 0.05
+BatchNorm momentum = 0.05
+Dropout p = 0.05
+RandomResizedCrop scale=(0.7, 1.0)
+RandomHorizontalFlip p=0.5
+No rotation
+No ColorJitter
+4-block CNN + Global Average Pooling
+Best validation accuracy = 68.34%
+Best epoch = 30
