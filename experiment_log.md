@@ -965,3 +965,25 @@ No ColorJitter
 4-block CNN + Global Average Pooling
 Best validation accuracy = 68.34%
 Best epoch = 30
+
+**Increased the feature resolution to 512 channels - wider model**
+IMAGE_SIZE = 112
+BATCH_SIZE = 16
+MAX_LEARNING_RATE = 0.002
+AdamW weight_decay = 1e-4
+label_smoothing = 0.05
+BatchNorm momentum = 0.05
+Dropout p = 0.05
+RandomResizedCrop scale=(0.7, 1.0)
+RandomHorizontalFlip p=0.5
+Wider final blocks: 64→256 and 256→512
+Best validation accuracy = 69.70%
+Best epoch = 30
+
+Training accuracy: 93.78%
+Validation loss (4 decimal places): 1.4219
+Validation accuracy: 69.70%
+Epoch time: 22.82 seconds
+Learning rate at the end of the epoch: 0.000000
+Saved the new best model to model.pth
+Learning rate going into next epoch: 0.000000

@@ -53,42 +53,42 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
             # 2 convolution layers before pooling for more details 3/4
             nn.Conv2d(
                         in_channels=64,  # takes the 64 feature maps from block 2
-                        out_channels=128,  # increases to 128 feature maps to learn higher-level patterns
-                        kernel_size=3,  # 3x3 patch of features
-                        padding=1  # keeps the output the same height and width
+                        out_channels=256,  # increased to 256 to capture more complex pet textures
+                        kernel_size=3,
+                        padding=1
                     ),
-            nn.BatchNorm2d(128, momentum=0.05),  # normalises the 128 feature maps to make training more stable
-            nn.ReLU(),  # turns all negative values to 0
+            nn.BatchNorm2d(256, momentum=0.05),
+            nn.ReLU(),
 
             nn.Conv2d(
-                        in_channels=128,  # takes the 128 feature maps from the previous convolution
-                        out_channels=128,  # learns another 128 refined feature maps before pooling
-                        kernel_size=3,  # 3x3 patch of features
-                        padding=1  # keeps the output the same height and width
+                        in_channels=256,
+                        out_channels=256,  # refined to 256 feature maps
+                        kernel_size=3,
+                        padding=1
                     ),
-            nn.BatchNorm2d(128, momentum=0.05),  # normalises the 128 feature maps to make training more stable
-            nn.ReLU(),  # turns all negative values to 0
-            nn.MaxPool2d(kernel_size=2),  # keeps the highest value in each 2x2 block and halves the image size
+            nn.BatchNorm2d(256, momentum=0.05),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2),
 
             # 2 convolution layers before pooling for more details 4/4
             nn.Conv2d(
-                        in_channels=128,  # takes the 128 feature maps from block 3
-                        out_channels=256,  # increases to 256 feature maps for maximum capacity
-                        kernel_size=3,  # 3x3 patch of features
-                        padding=1  # keeps the output the same height and width
+                        in_channels=256,  # takes the 256 feature maps from block 3
+                        out_channels=512,  # increased to 512 for maximum feature resolution
+                        kernel_size=3,
+                        padding=1
                     ),
-            nn.BatchNorm2d(256, momentum=0.05),  # normalises the 256 feature maps to make training more stable
-            nn.ReLU(),  # turns all negative values to 0
+            nn.BatchNorm2d(512, momentum=0.05),
+            nn.ReLU(),
 
             nn.Conv2d(
-                        in_channels=256,  # takes the 256 feature maps from the previous convolution
-                        out_channels=256,  # learns another 256 refined feature maps before final pooling
-                        kernel_size=3,  # 3x3 patch of features
-                        padding=1  # keeps the output the same height and width
+                        in_channels=512,
+                        out_channels=512,  # refined to 512 feature maps before final pooling
+                        kernel_size=3,
+                        padding=1
                     ),
-            nn.BatchNorm2d(256, momentum=0.05),  # normalises the 256 feature maps to make training more stable
-            nn.ReLU(),  # turns all negative values to 0
-            nn.MaxPool2d(kernel_size=2),  # keeps the highest value in each 2x2 block and halves the image size
+            nn.BatchNorm2d(512, momentum=0.05),
+            nn.ReLU(),
+            nn.MaxPool2d(kernel_size=2),
 
             # Taking 1x1 averages out the entire feature map
             nn.AdaptiveAvgPool2d((1, 1))  # flattens the final 7x7 feature map to 1x1 to prevent spatial overfitting
@@ -99,7 +99,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
         self.classifier = nn.Sequential( # run in this specific order
             nn.Flatten(), # 3d to 1d by multiplying the last 3 dimensions of the tensor together
             nn.Dropout(p=0.05),
-            nn.Linear(256, num_classes) # maps the 256 global features directly to pet breeds to generate logits
+            nn.Linear(512, num_classes) # maps the 256 global features directly to pet breeds to generate logits
         )
 
     def forward(self, input_tensor): # process the input tensor with the features and classifier
