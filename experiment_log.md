@@ -987,3 +987,27 @@ Epoch time: 22.82 seconds
 Learning rate at the end of the epoch: 0.000000
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000000
+
+**label_smoothing increase to 0.1**
+IMAGE_SIZE = 112
+BATCH_SIZE = 16
+MAX_LEARNING_RATE = 0.002
+AdamW weight_decay = 1e-4
+BatchNorm momentum = 0.05
+Dropout p = 0.05
+label_smoothing = 0.1
+RandomResizedCrop scale=(0.7, 1.0)
+RandomHorizontalFlip p=0.5
+Wider final blocks: 64→256→256, then 256→512→512
+Classifier: Dropout(0.05), Linear(512 → 37)
+Best validation accuracy = 70.11%
+Best epoch = 30
+
+Training loss (4 decimal places): 1.0729
+Training accuracy: 94.60%
+Validation loss (4 decimal places): 1.6745
+Validation accuracy: 70.11%
+Epoch time: 18.93 seconds
+Learning rate at the end of the epoch: 0.000000
+Saved the new best model to model.pth
+Learning rate going into next epoch: 0.000000
