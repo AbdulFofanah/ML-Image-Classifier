@@ -1,3 +1,4 @@
+# This file was retired as i focused on teh experiment log so this accounts for early decisions that arent representative of where the code is at now.
 **My notes and reasoning**
 Numbers = significant milestone
 

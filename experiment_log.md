@@ -1036,3 +1036,63 @@ Epoch time: 18.76 seconds
 Learning rate at the end of the epoch: 0.000060
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000060
+
+** 112 to 128 image size change**
+Experiment Log: High-Resolution Baseline
+Configuration Parameters:
+
+IMAGE_SIZE = 128
+BATCH_SIZE = 16
+MAX_LEARNING_RATE = 0.002
+OneCycleLR pct_start = 0.4
+AdamW weight_decay = 1.2e-4
+BatchNorm momentum = 0.05
+Dropout p = 0.05
+label_smoothing = 0.1
+RandomResizedCrop scale = (0.7, 1.0)
+RandomHorizontalFlip p = 0.5
+Architecture: Wider final blocks (64→256→256, then 256→512→512)
+Classifier: Dropout(0.05), Linear(512 → 37)
+Best validation accuracy = 71.74%
+Best epoch = 28
+
+Training loss (4 decimal places): 1.0254
+Training accuracy: 95.82%
+Validation loss (4 decimal places): 1.6213
+Validation accuracy: 71.74%
+Epoch time: 22.18 seconds
+Learning rate at the end of the epoch: 0.000060
+Saved the new best model to model.pth
+Learning rate going into next epoch: 0.000060
+
+# Final model
+** Changed validation ratio to 0.1 (90/10 split between training and validation)
+IMAGE_SIZE = 128
+BATCH_SIZE = 16
+VALIDATION_RATIO = 0.1
+MAX_LEARNING_RATE = 0.002
+OneCycleLR pct_start = 0.4
+AdamW weight_decay = 1.2e-4
+BatchNorm momentum = 0.05
+Dropout p = 0.05
+label_smoothing = 0.1
+RandomResizedCrop scale = (0.7, 1.0)
+RandomHorizontalFlip p = 0.5
+Architecture: Wider final blocks (64→256→256, then 256→512→512)
+Classifier: Dropout(0.05), Linear(512 → 37)
+Best validation accuracy = 71.20%
+Best epoch = 30
+
+Even though this is slightly less than 71.74 im using this one as the 0.54 % validation is negligible in comparison to that fact that this
+model got to training on more images so in theory should haver better results when generalising to unseen data (2,944 to 3,312 images)
+Because I've been using stratified split form the beginning it means that each pet breed is still adequately represented in the validation
+set but wight the 368 images extra images (roughly 10 additional examples per breed) for the model to see in every single epoch, it should
+allow it to generalise better
+
+Training loss (4 decimal places): 1.0704
+Training accuracy: 94.02%
+Validation loss (4 decimal places): 1.5892
+Validation accuracy: 71.20%
+Epoch time: 23.80 seconds
+Learning rate at the end of the epoch: 0.000000
+Learning rate going into next epoch: 0.000000

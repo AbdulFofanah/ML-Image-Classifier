@@ -17,7 +17,9 @@ TRAINING_STD = [0.255698, 0.250303, 0.258181]
 IMAGE_SIZE = 128  # upgraded to 128 to give the model more visual details
 BATCH_SIZE = 16
 SPLIT_SEED = 67
-VALIDATION_RATIO = 0.2
+# Training Dataset 3,312 images (90% of the split - roughly 89/90 per breed) |
+# Validation Dataset 368 images (10% of the split - roughly 9/10 per breed)  |
+VALIDATION_RATIO = 0.1  # <---------------------------------------------------
 NUMBER_OF_WORKERS = 0
 
 
