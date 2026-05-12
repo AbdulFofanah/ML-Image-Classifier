@@ -14,7 +14,7 @@ from sklearn.model_selection import train_test_split
 TRAINING_MEAN = [0.479322, 0.446042, 0.395331]
 TRAINING_STD = [0.255698, 0.250303, 0.258181]
 
-IMAGE_SIZE = 112  # upgraded to 112 to give the model more visual details
+IMAGE_SIZE = 128  # upgraded to 128 to give the model more visual details
 BATCH_SIZE = 16
 SPLIT_SEED = 67
 VALIDATION_RATIO = 0.2
