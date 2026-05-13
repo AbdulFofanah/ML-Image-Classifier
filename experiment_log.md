@@ -251,7 +251,7 @@ This suggests that 0.3 value was too strong for the classifier at this stage wit
 
 Settings:
 - Architecture: wider CNN with BatchNorm2d after each Conv2d layer.
-- Channels: 32 → 64 → 128
+- Channels: 32 -> 64 -> 128
 - Dropout: none
 - Learning rate: 0.0005
 - Batch size: 32
@@ -284,7 +284,7 @@ I didn't keep this in the architecture.
 
 Settings:
 - Architecture: deeper CNN with BatchNorm2d after each Conv2d layer.
-- Channels: 16 → 32 → 64 → 128
+- Channels: 16 -> 32 -> 64 -> 128
 - Dropout: none
 - Learning rate: 0.0005
 - Batch size: 32
@@ -318,7 +318,7 @@ I kept it as the architecture at this stage.
 
 Settings:
 - Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)) before the classifier.
-- Channels: 16 → 32 → 64 → 128
+- Channels: 16 -> 32 -> 64 -> 128
 - Dropout: none
 - Learning rate: 0.0005
 - Batch size: 32
@@ -351,7 +351,7 @@ so i'm keeping the adaptive pooling as part of the current architecture.
 
 Settings:
 - Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)) before the classifier.
-- Channels: 16 → 32 → 64 → 128
+- Channels: 16 -> 32 -> 64 -> 128
 - Dropout: none
 - Learning rate: 0.0005
 - Batch size: 32
@@ -383,7 +383,7 @@ visual detail. AdaptiveAvgPool2d((4, 4)) allowed this image-size change without 
 
 Settings:
 - Architecture: deeper CNN with BatchNorm2d after each Conv2d layer and AdaptiveAvgPool2d((4, 4)) before the classifier.
-- Channels: 16 → 32 → 64 → 128
+- Channels: 16 -> 32 -> 64 -> 128
 - Dropout: none
 - Learning rate: 0.0005
 - Batch size: 32
@@ -742,7 +742,7 @@ This indicates overfitting sop io should do some measure to tackle that
 
 Settings:
 - Architecture: VGG-style CNN with two Conv2d + BatchNorm2d + ReLU layers before each MaxPool2d.
-- Blocks: 3→32→32, 32→64→64, 64→128→128.
+- Blocks: 3->32->32, 32->64->64, 64->128->128.
 - Image size: 96x96
 - Training augmentation: corrected RandomResizedCrop(size=96, scale=(0.8, 1.0)) only
 - Validation/test augmentation: deterministic Resize((96, 96))
@@ -857,7 +857,7 @@ Experiment: 112x112 + 4-Block CNN + OneCycleLR
 IMAGE_SIZE = 112
 4-block VGG-style CNN
 AdaptiveAvgPool2d((1,1))
-Classifier: Linear(256 → 37)
+Classifier: Linear(256 -> 37)
 Adam optimiser
 Initial learning rate = 0.001
 OneCycleLR scheduler
@@ -886,7 +886,7 @@ I made a couple of major changes tha were necessary to compute the higher image 
 2. Architecture changed from a 3-block CNN to a 4-block CNN to process those new details
 3. Final feature depth increased from 128 channels to 256 channels as there was an additional block
 4. Pooling changed from AdaptiveAvgPool2d((4,4)) to AdaptiveAvgPool2d((1,1)) - Taking 1x1 averages out the entire feature map
-5. Classifier changed from a hidden-layer classifier to a direct Linear(256 → 37) classifier - 
+5. Classifier changed from a hidden-layer classifier to a direct Linear(256 -> 37) classifier - 
 rreduced the amount of parameters to learn from, from the hidden layer which in theory 
 reduces over fit as it reduces the models ability to memorise training data (9,472 parameters)
 6. Scheduler changed from ReduceLROnPlateau to OneCycleLR -
@@ -978,7 +978,7 @@ BatchNorm momentum = 0.05
 Dropout p = 0.05
 RandomResizedCrop scale=(0.7, 1.0)
 RandomHorizontalFlip p=0.5
-Wider final blocks: 64→256 and 256→512
+Wider final blocks: 64->256 and 256->512
 Best validation accuracy = 69.70%
 Best epoch = 30
 
@@ -1000,8 +1000,8 @@ Dropout p = 0.05
 label_smoothing = 0.1
 RandomResizedCrop scale=(0.7, 1.0)
 RandomHorizontalFlip p=0.5
-Wider final blocks: 64→256→256, then 256→512→512
-Classifier: Dropout(0.05), Linear(512 → 37)
+Wider final blocks: 64->256->256, then 256->512->512
+Classifier: Dropout(0.05), Linear(512 -> 37)
 Best validation accuracy = 70.11%
 Best epoch = 30
 
@@ -1025,8 +1025,8 @@ Dropout p = 0.05
 label_smoothing = 0.1
 RandomResizedCrop scale=(0.7, 1.0)
 RandomHorizontalFlip p=0.5
-Wider final blocks: 64→256→256, then 256→512→512
-Classifier: Dropout(0.05), Linear(512 → 37)
+Wider final blocks: 64->256->256, then 256->512->512
+Classifier: Dropout(0.05), Linear(512 -> 37)
 Best validation accuracy = 71.33%
 Best epoch = 28
 
@@ -1053,8 +1053,8 @@ Dropout p = 0.05
 label_smoothing = 0.1
 RandomResizedCrop scale = (0.7, 1.0)
 RandomHorizontalFlip p = 0.5
-Architecture: Wider final blocks (64→256→256, then 256→512→512)
-Classifier: Dropout(0.05), Linear(512 → 37)
+Architecture: Wider final blocks (64->256->256, then 256->512->512)
+Classifier: Dropout(0.05), Linear(512 -> 37)
 Best validation accuracy = 71.74%
 Best epoch = 28
 
@@ -1080,8 +1080,8 @@ BatchNorm momentum = 0.15
 label_smoothing = 0.1
 RandomResizedCrop scale = (0.7, 1.0)
 RandomHorizontalFlip p = 0.5
-Architecture: Wider final blocks (64→256→256, then 256→512→512)
-Classifier: Dropout(0.05), Linear(512 → 37)
+Architecture: Wider final blocks (64->256->256, then 256->512->512)
+Classifier: Dropout(0.05), Linear(512 -> 37)
 Best validation accuracy = 71.20%
 Best epoch = 30
 
@@ -1112,8 +1112,8 @@ Dropout p = 0.05
 label_smoothing = 0.1
 RandomResizedCrop scale = (0.7, 1.0)
 RandomHorizontalFlip p = 0.5
-Architecture: Wider final blocks (64→256→256, then 256→512→512)
-Classifier: Dropout(0.05), Linear(512 → 37)
+Architecture: Wider final blocks (64->256->256, then 256->512->512)
+Classifier: Dropout(0.05), Linear(512 -> 37)
 Best validation accuracy =  71.74%
 
 Best epoch = 30
@@ -1140,8 +1140,8 @@ Dropout p = 0.05
 label_smoothing = 0.1
 RandomResizedCrop scale = (0.7, 1.0)
 RandomHorizontalFlip p = 0.5
-Architecture: Wider final blocks (64→256→256, then 256→512→512)
-Classifier: Dropout(0.05), Linear(512 → 37)
+Architecture: Wider final blocks (64->256->256, then 256->512->512)
+Classifier: Dropout(0.05), Linear(512 -> 37)
 Best validation accuracy =  73.37%
 
 Using stratified splitting, even with only 5% of the data being in the validation split,
@@ -1177,10 +1177,10 @@ Input tensor shape: [4, 128, 128]
 RGB channels normalised using the training-set mean and standard deviation
 Mask channel kept as 0.0/1.0 and not normalised
 
-4-block VGG-style CNN
-First convolution changed from Conv2d(3 → 32) to Conv2d(4 → 32)
-Wider final blocks: 64→256→256, then 256→512→512
-Classifier: Dropout(0.15), Linear(512 → 37)
+A 4-block VGG style CNN
+First convolution changed from Conv2d(3 -> 32) to Conv2d(4 -> 32)
+Wider final blocks: 64->256->256, then 256->512->512
+Classifier: Dropout(0.15), Linear(512 -> 37)
 
 Best validation accuracy = 77.72%  
 Best epoch = 28
