@@ -11,8 +11,8 @@ from torchvision.datasets import OxfordIIITPet
 from torch.utils.data import DataLoader, Subset  # Subset selects dataset items by index without copying images
 from sklearn.model_selection import train_test_split
 
-TRAINING_MEAN = [0.479322, 0.446042, 0.395331]
-TRAINING_STD = [0.255698, 0.250303, 0.258181]
+TRAINING_MEAN = [0.479151, 0.446106, 0.395423]
+TRAINING_STD = [0.260509, 0.255052, 0.262984]
 
 IMAGE_SIZE = 128  # upgraded to 128 to give the model more visual details
 BATCH_SIZE = 16
@@ -72,7 +72,7 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
         download=True,
     )
 
-    # Stratified 80/20 split which keeps the class distribution similar in training and validation.
+    # Stratified 90/10 split which keeps the class distribution similar in training and validation.
     # I did this as it helps make sure all 37 breeds are represented fairly in both the training and validation sets.
     all_image_position_indices = list(range(len(training_trainval_data)))  # list of all image positions in the trainval_data dataset.
     all_image_labels = training_trainval_data._labels  # the category label for every image, used for stratified splitting

@@ -1065,7 +1065,7 @@ Learning rate at the end of the epoch: 0.000060
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000060
 
-# Final model
+# Second to last model
 ** Changed validation ratio to 0.1 (90/10 split between training and validation)
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
@@ -1095,4 +1095,32 @@ Validation loss (4 decimal places): 1.5892
 Validation accuracy: 71.20%
 Epoch time: 23.80 seconds
 Learning rate at the end of the epoch: 0.000000
+Learning rate going into next epoch: 0.000000
+
+# Final model - TRAINING_MEAN = [0.479151, 0.446106, 0.395423] TRAINING_STD = [0.260509, 0.255052, 0.262984]
+Recomputed the mean and std on the new split
+IMAGE_SIZE = 128
+BATCH_SIZE = 16
+VALIDATION_RATIO = 0.1
+MAX_LEARNING_RATE = 0.002
+OneCycleLR pct_start = 0.4
+AdamW weight_decay = 1.2e-4
+BatchNorm momentum = 0.05
+Dropout p = 0.05
+label_smoothing = 0.1
+RandomResizedCrop scale = (0.7, 1.0)
+RandomHorizontalFlip p = 0.5
+Architecture: Wider final blocks (64→256→256, then 256→512→512)
+Classifier: Dropout(0.05), Linear(512 → 37)
+Best validation accuracy =  71.74%
+
+Best epoch = 30
+
+Training loss (4 decimal places): 1.0600
+Training accuracy: 94.47%
+Validation loss (4 decimal places): 1.6039
+Validation accuracy: 71.74%
+Epoch time: 20.80 seconds
+Learning rate at the end of the epoch: 0.000000
+Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000000
