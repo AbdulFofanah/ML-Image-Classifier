@@ -383,3 +383,7 @@ Training complete
 The best validation accuracy: 77.72%
 
 Process finished with exit code 0
+
+# Test data run
+Official test complete
+Test accuracy: 73.21%
