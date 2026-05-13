@@ -24,6 +24,7 @@ def set_seed(seed=CHOSEN_SEED):
     np.random.seed(seed)               # controls NumPy randomness.
     torch.manual_seed(seed)            # controls PyTorch randomness on CPU
     torch.cuda.manual_seed_all(seed)   # controls PyTorch randomness on GPU.
+    # deterministic calculations for reproducibility
     torch.backends.cudnn.deterministic = True
     torch.backends.cudnn.benchmark = False
 
@@ -161,7 +162,7 @@ def main():
 
         print(f"Epoch time: {epoch_time:.2f} seconds")
         current_learning_rate = optimiser.param_groups[0]["lr"]     # reads the learning rate being used in the current epoch
-        print(f"Learning rate at the end of the epoch: {current_learning_rate:.6f}")
+        print(f"Learning rate at the end of the epoch: {current_learning_rate:.6e}")
 
 
         if validation_accuracy > best_validation_accuracy:
@@ -171,7 +172,7 @@ def main():
 
 
         updated_learning_rate = optimiser.param_groups[0]["lr"]  # reads the learning rate that will be used next epoch
-        print(f"Learning rate going into next epoch: {updated_learning_rate:.6f}")
+        print(f"Learning rate going into next epoch: {updated_learning_rate:.6e}")
 
 
     print(
