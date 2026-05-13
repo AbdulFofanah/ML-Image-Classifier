@@ -12,7 +12,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
         self.features = nn.Sequential(  # run in this specific order
             # 2 convolution layers before pooling for more details 1/4
             nn.Conv2d(
-                        in_channels=4,  # RGB
+                        in_channels=4,  # RGB + trimap-derived pet mask
                         out_channels=32,  # number of feature maps/filters learning low-level patterns
                         kernel_size=3,  # 3x3 patch of pixels
                         padding=1  # keeps the output the same height and width as the input

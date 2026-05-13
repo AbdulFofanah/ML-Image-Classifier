@@ -62,7 +62,7 @@ def main():
                                             )
 
     print(
-        f"\nOffical test complete\n"
+        f"\nOfficial test complete\n"
         f"Test loss (4 decimal places): {test_loss:.4f}\n"
         f"Test accuracy: {test_accuracy * 100:.2f}%"
     )
