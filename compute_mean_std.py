@@ -25,7 +25,7 @@ def main():
                                     download=True
                                 )
 
-    # Stratified 90/2\10 split which keeps the class distribution similar in training and validation.
+    # Stratified 95\05 split which keeps the class distribution similar in training and validation.
     # I did this as it helps make sure all 37 breeds are represented fairly in both the training and validation sets.
     all_image_position_indices = list(range(len(trainval_data)))  # list of all image positions in the trainval_data dataset.
     all_image_labels = trainval_data._labels  # the category label for every image, used for stratified splitting
