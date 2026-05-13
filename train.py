@@ -176,6 +176,7 @@ def main():
 
     print(
         f"\nTraining complete\n"
+        f"Final training accuracy: {training_accuracy * 100:.2f}%\n"
         f"The best validation accuracy: {best_validation_accuracy * 100:.2f}%"
          )
 

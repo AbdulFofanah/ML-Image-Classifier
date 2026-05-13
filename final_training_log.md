@@ -380,6 +380,7 @@ Learning rate at the end of the epoch: 0.000000
 Learning rate going into next epoch: 0.000000
 
 Training complete
+Final training accuracy: 95.77%
 The best validation accuracy: 77.72%
 
 Process finished with exit code 0
