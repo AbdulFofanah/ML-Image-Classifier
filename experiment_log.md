@@ -4,9 +4,10 @@ The file holds all of my meaningful experimenets/training
 
 Shared:
 
-**Data:**  
-Official Oxford-IIIT Pet `trainval` split, using stratified 95/5 train-validation split.
-OxfordPetTrimapDataset is used
+**Final data setup:**  
+Official Oxford-IIIT Pet `trainval` split, using stratified 95/5 train-validation split.  
+The final selected model uses `OxfordPetTrimapDataset`,
+which adds the official trimap-derived pet mask as a fourth input channel.
 
 **Model:**  
 Baseline `OxfordPetCNN`.
