@@ -1,6 +1,5 @@
 import torch
 import torch.nn as nn # for the loss function
-from tqdm import tqdm # for progress bars
 
 from data_pipeline import get_data_loaders
 from model import OxfordPetCNN
@@ -18,7 +17,7 @@ def evaluate_test(model, test_loader, loss_function, device):
     total_predictions = 0
 
     with torch.no_grad():
-        for batch_images, batch_labels in tqdm(test_loader, desc="Testing"): #loop with a progress bar for testing
+        for batch_images, batch_labels in test_loader: # run the model
             batch_images = batch_images.to(device, non_blocking=True)  #moves images to my selected device (cuda) efficiently
             batch_labels = batch_labels.to(device, non_blocking=True)  #moves images to my selected device (cuda) efficiently
 
@@ -65,7 +64,6 @@ def main():
         f"\nOfficial test complete\n"
         f"Test accuracy: {test_accuracy * 100:.2f}%"
     )
-
 
 if __name__ == "__main__":
     main()
