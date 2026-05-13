@@ -99,7 +99,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
         self.classifier = nn.Sequential( # run in this specific order
             nn.Flatten(), # 3d to 1d by multiplying the last 3 dimensions of the tensor together
             nn.Dropout(p=0.15),
-            nn.Linear(512, num_classes) # maps the 256 global features directly to pet breeds to generate logits
+            nn.Linear(512, num_classes) # maps the 512 global features directly to pet breeds to generate logits
         )
 
     def forward(self, input_tensor): # process the input tensor with the features and classifier
