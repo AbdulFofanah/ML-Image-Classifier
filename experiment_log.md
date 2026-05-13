@@ -5,7 +5,8 @@ The file holds all of my meaningful experimenets/training
 Shared:
 
 **Data:**  
-Official Oxford-IIIT Pet `trainval` split, using stratified 80/20 train-validation split.
+Official Oxford-IIIT Pet `trainval` split, using stratified 95/5 train-validation split.
+OxfordPetTrimapDataset is used
 
 **Model:**  
 Baseline `OxfordPetCNN`.
