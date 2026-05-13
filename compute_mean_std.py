@@ -7,11 +7,11 @@ from sklearn.model_selection import train_test_split
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
 SPLIT_SEED = 67
-VALIDATION_RATIO = 0.1
+VALIDATION_RATIO = 0.05
 NUMBER_OF_WORKERS = 0
 
 def main():
-    # Only resizes and convert to tensor as im computign the mean and std
+    # Only resizes and convert to tensor as im computing the mean and std
     mean_std_transforms = transforms.Compose([
                                                 transforms.Resize((IMAGE_SIZE, IMAGE_SIZE)),
                                                 transforms.ToTensor()

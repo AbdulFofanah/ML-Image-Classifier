@@ -1065,7 +1065,7 @@ Learning rate at the end of the epoch: 0.000060
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000060
 
-# Second to last model
+# third to last model
 ** Changed validation ratio to 0.1 (90/10 split between training and validation)
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
@@ -1097,7 +1097,7 @@ Epoch time: 23.80 seconds
 Learning rate at the end of the epoch: 0.000000
 Learning rate going into next epoch: 0.000000
 
-# Final model - TRAINING_MEAN = [0.479151, 0.446106, 0.395423] TRAINING_STD = [0.260509, 0.255052, 0.262984]
+# second to last model - TRAINING_MEAN = [0.479151, 0.446106, 0.395423] TRAINING_STD = [0.260509, 0.255052, 0.262984]
 Recomputed the mean and std on the new split
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
@@ -1121,6 +1121,37 @@ Training accuracy: 94.47%
 Validation loss (4 decimal places): 1.6039
 Validation accuracy: 71.74%
 Epoch time: 20.80 seconds
+Learning rate at the end of the epoch: 0.000000
+Saved the new best model to model.pth
+Learning rate going into next epoch: 0.000000
+
+# Final model - TRAINING_MEAN = [0.478537, 0.445716, 0.39523] TRAINING_STD = [0.260152, 0.254637, 0.262637]
+Recomputed the mean and std on the new split
+IMAGE_SIZE = 128
+BATCH_SIZE = 16
+VALIDATION_RATIO = 0.05
+MAX_LEARNING_RATE = 0.002
+OneCycleLR pct_start = 0.4
+AdamW weight_decay = 1.2e-4
+BatchNorm momentum = 0.05
+Dropout p = 0.05
+label_smoothing = 0.1
+RandomResizedCrop scale = (0.7, 1.0)
+RandomHorizontalFlip p = 0.5
+Architecture: Wider final blocks (64→256→256, then 256→512→512)
+Classifier: Dropout(0.05), Linear(512 → 37)
+Best validation accuracy =  73.37%
+
+Using stratified splitting, even with only 5% of the data being in the validation split,
+every one of the 37 breeds is represented by roughly 5 images so the model can train on more.
+
+Best epoch = 30
+
+Training loss (4 decimal places): 1.0597
+Training accuracy: 94.65%
+Validation loss (4 decimal places): 1.5287
+Validation accuracy: 73.37%
+Epoch time: 26.98 seconds
 Learning rate at the end of the epoch: 0.000000
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000000

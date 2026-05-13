@@ -11,15 +11,16 @@ from torchvision.datasets import OxfordIIITPet
 from torch.utils.data import DataLoader, Subset  # Subset selects dataset items by index without copying images
 from sklearn.model_selection import train_test_split
 
-TRAINING_MEAN = [0.479151, 0.446106, 0.395423]
-TRAINING_STD = [0.260509, 0.255052, 0.262984]
+# computed from the training set
+TRAINING_MEAN = [0.478537, 0.445716, 0.39523]
+TRAINING_STD = [0.260152, 0.254637, 0.262637]
 
 IMAGE_SIZE = 128  # upgraded to 128 to give the model more visual details
 BATCH_SIZE = 16
 SPLIT_SEED = 67
-# Training Dataset 3,312 images (90% of the split - roughly 89/90 per breed) |
-# Validation Dataset 368 images (10% of the split - roughly 9/10 per breed)  |
-VALIDATION_RATIO = 0.1  # <---------------------------------------------------
+# Training Dataset 3,496 images (95% of the split - roughly 94/95 per breed)  |
+# Validation Dataset 184 images (5% of the split - roughly 5 per breed)       |
+VALIDATION_RATIO = 0.05  # <---------------------------------------------------
 NUMBER_OF_WORKERS = 0
 
 
