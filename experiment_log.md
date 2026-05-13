@@ -1065,16 +1065,16 @@ Learning rate at the end of the epoch: 0.000060
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000060
 
-# third to last model
+# validation accuracy = 71.20%
 ** Changed validation ratio to 0.1 (90/10 split between training and validation)
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
 VALIDATION_RATIO = 0.1
 MAX_LEARNING_RATE = 0.002
 OneCycleLR pct_start = 0.4
-AdamW weight_decay = 1.2e-4
 BatchNorm momentum = 0.05
-Dropout p = 0.05
+AdamW weight_decay = 1e-3
+BatchNorm momentum = 0.15
 label_smoothing = 0.1
 RandomResizedCrop scale = (0.7, 1.0)
 RandomHorizontalFlip p = 0.5
@@ -1097,15 +1097,15 @@ Epoch time: 23.80 seconds
 Learning rate at the end of the epoch: 0.000000
 Learning rate going into next epoch: 0.000000
 
-# second to last model - TRAINING_MEAN = [0.479151, 0.446106, 0.395423] TRAINING_STD = [0.260509, 0.255052, 0.262984]
+# validation accuracy =  71.74%l - TRAINING_MEAN = [0.479151, 0.446106, 0.395423] TRAINING_STD = [0.260509, 0.255052, 0.262984]
 Recomputed the mean and std on the new split
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
 VALIDATION_RATIO = 0.1
 MAX_LEARNING_RATE = 0.002
 OneCycleLR pct_start = 0.4
-AdamW weight_decay = 1.2e-4
-BatchNorm momentum = 0.05
+AdamW weight_decay = 1e-3
+BatchNorm momentum = 0.15
 Dropout p = 0.05
 label_smoothing = 0.1
 RandomResizedCrop scale = (0.7, 1.0)
@@ -1125,15 +1125,15 @@ Learning rate at the end of the epoch: 0.000000
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000000
 
-# Final model - TRAINING_MEAN = [0.478537, 0.445716, 0.39523] TRAINING_STD = [0.260152, 0.254637, 0.262637]
+# validation accuracy =  73.37% - TRAINING_MEAN = [0.478537, 0.445716, 0.39523] TRAINING_STD = [0.260152, 0.254637, 0.262637]
 Recomputed the mean and std on the new split
 IMAGE_SIZE = 128
 BATCH_SIZE = 16
 VALIDATION_RATIO = 0.05
 MAX_LEARNING_RATE = 0.002
 OneCycleLR pct_start = 0.4
-AdamW weight_decay = 1.2e-4
-BatchNorm momentum = 0.05
+AdamW weight_decay = 1e-3
+BatchNorm momentum = 0.15
 Dropout p = 0.05
 label_smoothing = 0.1
 RandomResizedCrop scale = (0.7, 1.0)
@@ -1155,3 +1155,38 @@ Epoch time: 26.98 seconds
 Learning rate at the end of the epoch: 0.000000
 Saved the new best model to model.pth
 Learning rate going into next epoch: 0.000000
+
+# validation accuracy = 77.72% - Architecture change, used the trimap database as found out form the discussions that it was permitted
+
+IMAGE_SIZE = 128  
+BATCH_SIZE = 16  
+VALIDATION_RATIO = 0.05  
+MAX_LEARNING_RATE = 0.002  
+OneCycleLR pct_start = 0.4  
+AdamW weight_decay = 1e-3  
+BatchNorm momentum = 0.05  
+Dropout p = 0.15  
+label_smoothing = 0.1  
+RandomResizedCrop scale = (0.7, 1.0)  
+RandomHorizontalFlip p = 0.5  
+
+RGB image + official trimap-derived pet mask
+Input tensor shape: [4, 128, 128]
+RGB channels normalised using the training-set mean and standard deviation
+Mask channel kept as 0.0/1.0 and not normalised
+
+4-block VGG-style CNN
+First convolution changed from Conv2d(3 → 32) to Conv2d(4 → 32)
+Wider final blocks: 64→256→256, then 256→512→512
+Classifier: Dropout(0.15), Linear(512 → 37)
+
+Best validation accuracy = 77.72%  
+Best epoch = 28
+
+Epoch 28:
+Training loss = 1.0597  
+Training accuracy = 93.99%  
+Validation loss = 1.4553  
+Validation accuracy = 77.72%  
+Epoch time = 22.29 seconds  
+Learning rate at the end of the epoch = 0.000060  

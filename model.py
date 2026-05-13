@@ -12,7 +12,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
         self.features = nn.Sequential(  # run in this specific order
             # 2 convolution layers before pooling for more details 1/4
             nn.Conv2d(
-                        in_channels=3,  # RGB
+                        in_channels=4,  # RGB
                         out_channels=32,  # number of feature maps/filters learning low-level patterns
                         kernel_size=3,  # 3x3 patch of pixels
                         padding=1  # keeps the output the same height and width as the input
@@ -109,7 +109,7 @@ class OxfordPetCNN(nn.Module):  # Sets the neural network class with 37 class sc
 
 def main():
     basic_model = OxfordPetCNN(num_classes=37)
-    temp_batch = torch.randn(32, 3, 112, 112)
+    temp_batch = torch.randn(32, 4, 112, 112)
 
     basic_model.eval() # evaluation mode
     with torch.no_grad(): # disable gradient tracking
@@ -118,7 +118,7 @@ def main():
     print(f"Input batch shape: {temp_batch.shape}\n")
     print(f"Output batch shape: {temp_batch_output.shape}\n")
 
-    summary(basic_model, input_size=(32, 3, 112, 112))
+    summary(basic_model, input_size=(32, 4, 112, 112))
 
 
 if __name__ == "__main__":
