@@ -61,7 +61,7 @@ class OxfordPetTrimapDataset(Dataset):
             return len(self.indices)   # length of specific subset whether it be training or validation
 
     # This first loads the pet sample and returns a 4-channel tensor with
-    # the rgb and the pet mask made from trinamp
+    # the rgb image and the pet mask made from the official trimap
     def __getitem__(self, index):
         # picks between the full dataset and trainval dataset
         if self.indices is None:
@@ -214,7 +214,7 @@ def get_data_loaders(batch_size=BATCH_SIZE, num_workers=NUMBER_OF_WORKERS):
                                             download=True,
                                         )
 
-    # Stratified 95/05 split which keeps the class distribution similar in training and validation.
+    # Stratified 95/5 split which keeps the class distribution similar in training and validation.
     # I did this as it helps make sure all 37 breeds are represented fairly in both the training and validation sets.
     all_image_position_indices = list(range(len(label_trainval_data)))  # list of all image positions in the trainval_data dataset.
     all_image_labels = label_trainval_data._labels  # the category label for every image, used for stratified splitting
