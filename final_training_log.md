@@ -384,6 +384,10 @@ The best validation accuracy: 77.72%
 
 Process finished with exit code 0
 
+# training subset accuracy with no augmentations
+
+Training subset size: 3496
+Training accuracy without augmentation: 97.57%
 
 # Test data run
 Official test complete
