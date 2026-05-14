@@ -124,6 +124,8 @@ def main():
                                             )
 
     best_validation_accuracy = 0.0
+    best_validation_loss = float("inf")
+    best_epoch = 0
 
     for epoch in range(NUM_EPOCHS):
         print(f"\nEpoch {epoch + 1} of {NUM_EPOCHS}")
@@ -164,8 +166,12 @@ def main():
         current_learning_rate = optimiser.param_groups[0]["lr"]     # reads the learning rate being used in the current epoch
         print(f"Learning rate at the end of the epoch: {current_learning_rate:.6e}")
 
-
-        if validation_accuracy > best_validation_accuracy:
+        # Save the model if validation accuracy improves
+        # If validation accuracy is tied, save the model with the lower validation loss
+        if ((validation_accuracy > best_validation_accuracy) or
+            (validation_accuracy == best_validation_accuracy and validation_loss < best_validation_loss)):
+            best_validation_loss = validation_loss
+            best_epoch = epoch + 1
             best_validation_accuracy = validation_accuracy
             torch.save(model.state_dict(), MODEL_SAVE_PATH)
             print(f"Saved the new best model to {MODEL_SAVE_PATH}")
@@ -178,7 +184,9 @@ def main():
     print(
         f"\nTraining complete\n"
         f"Final training accuracy: {training_accuracy * 100:.2f}%\n"
-        f"The best validation accuracy: {best_validation_accuracy * 100:.2f}%"
+        f"The best validation accuracy: {best_validation_accuracy * 100:.2f}%\n"
+        f"The best validation loss: {best_validation_loss:.4f}\n"
+        f"The saved best model epoch: {best_epoch} out of {NUM_EPOCHS}"
          )
 
 
