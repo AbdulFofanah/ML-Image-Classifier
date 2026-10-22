@@ -11,7 +11,7 @@ The model combines RGB imagery with the dataset's trimap segmentation informatio
 
 This project was developed for the University of York's **Intelligent Systems: Machine Learning & Optimisation** module.
 
-The objective was to design, train and evaluate a neural-network classifier on the Oxford-IIIT Pet dataset under a maximum training budget of 30 epochs.
+The objective was to design, train and evaluate a neural network classifier on the Oxford-IIIT Pet dataset under a maximum training budget of 30 epochs.
 
 The final model was trained for 29 epochs and classifies images across **37 cat and dog breeds**.
 
@@ -68,7 +68,7 @@ A variable learning-rate schedule was used across training, reaching a maximum l
 
 ## Results
 
-| Metric | Result |
+| **Metric** | **Result** |
 | --- | ---: |
 | Official test accuracy | **73.62%** |
 | Coursework mark | **92/100** |
@@ -101,3 +101,9 @@ This project formed the coursework component of the University of York **Intelli
 The module covered machine learning, neural networks, gradient-based optimisation, linear and logistic regression, regularisation, backpropagation and the mathematical foundations of machine learning.
 
 The coursework received **92/100**.
+
+## Academic Integrity and Portfolio Use
+
+This repository contains my completed coursework implementation and is published as a portfolio archive for recruitment and professional development.
+
+It is not intended to provide solutions for current or future assessed work. Students completing related coursework should follow their institution's academic-integrity requirements and produce their own independent work.
